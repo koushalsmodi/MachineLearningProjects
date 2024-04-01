@@ -1,0 +1,50 @@
+import numpy as np
+import sklearn as sk
+import sklearn.datasets
+import sklearn.model_selection
+import sklearn.linear_model
+import matplotlib.pyplot as plt
+
+dataset = sk.datasets.fetch_california_housing()
+X_full = dataset.data
+y_full = dataset.target
+
+X_train, X_val, y_train, y_val = sk.model_selection.train_test_split(X_full, y_full)
+
+mu = np.mean(X_train, axis = 0)
+s = np.std(X_train, axis = 0)
+
+X_train = (X_train - mu) / s
+X_val = (X_val - mu) / s
+
+X = np.insert(X_train, 0, 1, axis = 1)
+
+N_train, d = X_train.shape
+
+num_iters = 100 # converges earlier than higher numbers such as 400 or 500
+learning_rate = .07 # trial and error
+
+# below are the results with 500 iterations
+# with lr = .01, lowest mse: 0.5553284254463674 
+# with lr = .001, lowest mse: 1.2936404419750391
+# with lr = .05, lowest mse: 0.5260845942416816
+# with lr = .07, lowest mse: 0.5166061792872592
+# with lr = .075, lowest mse: 0.5291343880834107
+
+beta = np.zeros(d+1)
+mse_vals = []
+
+for i in range(num_iters):
+    grad = (2 / N_train) * (X.T) @ (X @ beta - y_train)
+    beta = beta - learning_rate * grad
+    
+    mse = np.mean((X@beta - y_train)**2)
+    mse_vals.append(mse)
+    print(f'iteration: {i+1}, mse: {mse}')
+
+plt.figure()
+plt.plot(mse_vals)
+plt.xlabel('iteration')
+plt.ylabel('cost function value')
+plt.title('Cost Function Value vs. Iteration')
+plt.show()
