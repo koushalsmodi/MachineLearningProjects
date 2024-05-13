@@ -31,7 +31,7 @@ def sigmoid(u):
 def bce(p, q):
     return -p*np.log(q) - (1-p)*np.log(1-q)
 
-def average_cross_entropy(beta, X, y):
+def average_cross_entropy(beta, X, y): 
     N = len(X)
     L = 0
     
