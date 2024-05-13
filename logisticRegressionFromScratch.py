@@ -25,7 +25,7 @@ X = np.insert(X_train, 0, 1, axis = 1)
 X_val_aug = np.insert(X_val, 0, 1, axis = 1)
 
 #%%
-def sigmoid(u):
+def sigmoid(u): 
     return 1 / (1+ np.exp(-u))
 
 def bce(p, q):
