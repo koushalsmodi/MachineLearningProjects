@@ -14,7 +14,6 @@ y_full = dataset.target
 X_train, X_val, y_train, y_val = sk.model_selection.train_test_split(X_full, y_full) 
     
 #%%
-
 mu = np.mean(X_train, axis = 0)
 s = np.std(X_train, axis = 0)
 
