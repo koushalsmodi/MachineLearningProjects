@@ -6,3 +6,4 @@ import sklearn.model_selection
 import matplotlib.pyplot as plt
 
 #%%
+dataset = sk.datasets.load_breast_cancer()
