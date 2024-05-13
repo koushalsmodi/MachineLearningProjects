@@ -21,7 +21,7 @@ X_train = (X_train-mu)/s
 X_val = (X_val-mu)/s 
 
 #%%
-X = np.insert(X_train, 0, 1, axis = 1)
+X = np.insert(X_train, 0, 1, axis = 1) 
 X_val_aug = np.insert(X_val, 0, 1, axis = 1)
 
 #%%
