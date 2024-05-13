@@ -11,7 +11,7 @@ X_full = dataset.data
 y_full = dataset.target
 
 #%%
-X_train, X_val, y_train, y_val = sk.model_selection.train_test_split(X_full, y_full)
+X_train, X_val, y_train, y_val = sk.model_selection.train_test_split(X_full, y_full) 
     
 #%%
 
