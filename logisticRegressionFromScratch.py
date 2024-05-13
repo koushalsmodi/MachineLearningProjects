@@ -4,3 +4,5 @@ import sklearn.datasets
 import sklearn.linear_model 
 import sklearn.model_selection
 import matplotlib.pyplot as plt
+
+#%%
