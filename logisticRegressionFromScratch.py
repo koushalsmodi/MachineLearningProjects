@@ -18,7 +18,7 @@ mu = np.mean(X_train, axis = 0)
 s = np.std(X_train, axis = 0) 
 
 X_train = (X_train-mu)/s
-X_val = (X_val-mu)/s
+X_val = (X_val-mu)/s 
 
 #%%
 X = np.insert(X_train, 0, 1, axis = 1)
