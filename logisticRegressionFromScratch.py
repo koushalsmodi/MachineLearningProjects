@@ -7,3 +7,4 @@ import matplotlib.pyplot as plt
 
 #%%
 dataset = sk.datasets.load_breast_cancer()
+X_full = dataset.data
