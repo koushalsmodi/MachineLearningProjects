@@ -15,7 +15,7 @@ X_train, X_val, y_train, y_val = sk.model_selection.train_test_split(X_full, y_f
     
 #%%
 mu = np.mean(X_train, axis = 0)
-s = np.std(X_train, axis = 0)
+s = np.std(X_train, axis = 0) 
 
 X_train = (X_train-mu)/s
 X_val = (X_val-mu)/s
