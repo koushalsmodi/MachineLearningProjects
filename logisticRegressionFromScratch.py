@@ -89,26 +89,3 @@ for i in range(N_val):
         num_correct += 1
 accuracy = num_correct / N_val
 print(f'Classifcation accuracy: {accuracy}')
-    
-    
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
-    
-    
-    
-    
-    
-
-
-
