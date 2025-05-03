@@ -115,7 +115,29 @@ class Space:
             # Generate image:
             if image_prefix:
                 self.output_image(f"{image_prefix}{str(count).zfill(3)}.png")
-                
+        
+    
+    def random_restart(self, maximum, image_prefix=None, log=False):
+        """Repeats hill-climbing multiple times to avoid shoulder issues or flat local minimum and hence we get better chance for global minima"""
+        best_banks = None
+        best_cost = None
+        
+        # Repeat a fixed number of times
+        for i in range(maximum):
+            banks = self.hill_climb()
+            cost = self.get_cost(banks)
+            if best_cost is None or cost < best_cost:
+                best_cost = cost 
+                best_banks = banks
+                if log:
+                    print(f"{i}: Found new best state: cost {cost}")
+            else:
+                if log:
+                    print(f"{i}: Found state: cost {cost}")
+            if image_prefix:
+                self.output_image(f"{image_prefix}{str(i).zfill(3)}.png")
+        return best_banks
+             
     def get_cost(self, banks):
         """Calculates sum of distances from banks to houses"""
         
@@ -225,9 +247,11 @@ class Space:
         )
 
         img.save(filename)
+        
+    
 
 # Create a new space and add houses randomly
-s = Space(height=10, width=20, num_banks = 2)
+s = Space(height=10, width=20, num_banks = 5)
 for i in range(20):
     s.add_house(random.randrange(s.height), random.randrange(s.width))
 
@@ -235,4 +259,4 @@ for i in range(20):
 banks = s.hill_climb(image_prefix='banks', log=True)
     
     
-    
+#banks = s.random_restart(10)
