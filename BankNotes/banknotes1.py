@@ -23,15 +23,15 @@ label = [row["label"] for row in data]
     
 # Training data
 # Validation data
-# Model training
-# Model prediction and loss function
 
 X_train, X_val, y_train, y_val = train_test_split(evidence, label, train_size=.8)
 
+# Model training
 model = Perceptron()
 
 model.fit(X_train, y_train)
 
+# Model prediction and loss function
 y_pred = model.predict(X_val)
 
 correct = (y_pred == y_val).sum()
