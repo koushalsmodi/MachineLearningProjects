@@ -49,3 +49,7 @@ The script performs the following steps:
 ## Expected Output
 
 The output will be similar to the following (the exact numbers may vary slightly due to the random splitting of the data):
+* Model name: Perceptron
+* Correct: 270
+* Incorrect: 5
+* Classification accuracy:  98.18
