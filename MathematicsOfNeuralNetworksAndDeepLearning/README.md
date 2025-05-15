@@ -13,3 +13,10 @@ PART II
 - The Neuron Function
 - Weight and Bias Indexing
 - A Layer of Neurons
+
+PART III: 
+- Motivation & Cost Function
+- Differentiating a Neuron's Operations
+    - Derivative of a Hadamard Product
+    - Derivative of a Sum
+- Derivative of a Neuron's Activation
