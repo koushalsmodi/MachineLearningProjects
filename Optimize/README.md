@@ -25,5 +25,5 @@ Each state of the grid is visualized using `Pillow`, showing:
 
 Example output filenames:
 banks000.png, banks001.png, ..., banks0__.png
-![Starting Location](images/banks000.png)
-![Final Output](images/banks022.png)
+![Starting Location](banks000.png)
+![Final Output](banks022.png)
