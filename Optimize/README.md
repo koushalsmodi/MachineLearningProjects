@@ -25,5 +25,8 @@ Each state of the grid is visualized using `Pillow`, showing:
 
 Example output filenames:
 banks000.png, banks001.png, ..., banks0__.png
+## Starting Cost: 218
 ![Starting Location](banks000.png)
+
+## Final Cost: 81
 ![Final Output](banks022.png)
