@@ -1,22 +1,10 @@
-# Mathematics of Neural Networks and Deep Learning
+# Mathematics and Recipe for Deep Learning
 
 ## Overview
 
-PART I
-- Prerequisites
-- Agenda
-- Notation
-- Big Picture
-- Matrix Calculus Review: Gradients, Jacobians, New Way of Seeing the Scalar Chain Rule, Jacobian Chain Rule
-
-PART II
-- The Neuron Function
-- Weight and Bias Indexing
-- A Layer of Neurons
-
-PART III: 
-- Motivation & Cost Function
-- Differentiating a Neuron's Operations
-    - Derivative of a Hadamard Product
-    - Derivative of a Sum
-- Derivative of a Neuron's Activation
+Linear Regression
+- Training Data: Feature vectors and Target values
+- Prediction function: f(xi) ~ y(i)
+- Loss function: l(yi, f(xi)) = (yi - f(xi))^2 (Mean Squared Error); l(y,y^)=  |y-y^| (Absolute Error Loss)
+- Cost/ Objective function
+L(B) = 1/N * ||XB-Y||^2
