@@ -42,7 +42,7 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 > Model 2 is significantly faster and avoids early complexity by relying on dense layers and dropout.
 
 ## Sample Output
-![Model 2](image-1.png)
+![Model 2](image.png)
 
 ## 📊 Accuracy Comparison
 
