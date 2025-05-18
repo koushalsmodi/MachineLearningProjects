@@ -1,5 +1,7 @@
 ### README Summary
 
+Dataset: https://benchmark.ini.rub.de/?section=gtsrb&subsection=news
+
 This project implements and compares two convolutional neural network (CNN) architectures on the German Traffic Sign Recognition Benchmark (GTSRB) dataset using TensorFlow/Keras for the task of road sign classification across 43 categories of road signs such as stop signs, speed limit signs, yield signs, and so on.
 
 # Model 1
