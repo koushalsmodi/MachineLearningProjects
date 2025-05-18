@@ -21,8 +21,8 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 - Output Layer: Softmax (43 classes)
 
 **Performance**:
-- Training Accuracy: ~6.1%
-- Test Accuracy: ~6.0%
+- Training Accuracy: ~90.3%
+- Test Accuracy: ~93.4%
 - Training Time: Longer due to higher filter complexity
 
 # Model 2: Shallow CNN with more Dense Layers
@@ -35,13 +35,17 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 - Output Layer: Softmax (43 classes)
 
 **Performance**:
-- Training Accuracy: ~6.0%
-- Test Accuracy: ~5.4%
+- Training Accuracy: ~5.1%
+- Test Accuracy: ~5.6%
 - Training Time: Significantly faster (6–10 seconds per epoch)
 
 > Model 2 is significantly faster and avoids early complexity by relying on dense layers and dropout.
 
-## Sample Output
+
+## Sample Output from Model 1
+![Model 1](image-1.png)
+
+## Sample Output from Model 2
 ![Model 2](image.png)
 
 ## 📊 Accuracy Comparison
@@ -49,8 +53,7 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 **Baseline Accuracy** (random guessing):  
 1/43= 2.3%.
 
-Both models surpass the baseline by 2x.
-
+Model 1 (the deeper CNN) significantly outperforms Model 2 (the shallow CNN with more dense layers) in the task of traffic sign multiclass classification on the GTSRB dataset.
 ---
 
 ## Requirements

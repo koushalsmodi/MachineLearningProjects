@@ -96,97 +96,97 @@ def get_model():
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
     
-    # model = tf.keras.models.Sequential([
-    #     ## FIRST CONVOLUTION
-        
-    #     # Convolutional layer. Learn 64 filters using a 3*3 kernel
-    #     tf.keras.layers.Conv2D(
-    #         64, (3,3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
-    #     ),
-        
-    #     # Max-poooling layer, using a 2 * 2 pool size
-    #     tf.keras.layers.MaxPooling2D(pool_size = (2,2)),
-        
-    #     ## SECOND CONVOLUTION
-        
-    #     # Convolutional layer. Learn 32 filters using a 4 * 4 kernel
-    #     tf.keras.layers.Conv2D(
-    #         32, (4,4), activation="relu")
-    #     ,
-    #     # Max-pooling layer, using a 2 * 2 pool size
-    #     tf.keras.layers.MaxPooling2D(pool_size=(2,2)),
-        
-    #     # Flatten units
-    #     tf.keras.layers.Flatten(),
-        
-    #     # Add a hidden layer with dropout
-    #     tf.keras.layers.Dense(128, activation="relu"),
-    #     tf.keras.layers.Dropout(0.4),
-        
-    #     # Add an output layer with output units for all 43 categories of road signs
-    #     tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
-                    
-    # ])
-    
-    # # Train a neural network
-    # model.compile(
-    #     optimizer="adam",
-    #     loss="categorical_crossentropy",
-    #     metrics = ["accuracy"]
-    # )
-    
-        
     model = tf.keras.models.Sequential([
         ## FIRST CONVOLUTION
         
-        # Convolutional layer. Learn 32 filters using a 4*4 kernel
+        # Convolutional layer. Learn 64 filters using a 3*3 kernel
         tf.keras.layers.Conv2D(
-            32, (4,4), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+            64, (3,3), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
         ),
         
-        # Max-poooling layer, using a 3 * 3 pool size
-        tf.keras.layers.MaxPooling2D(pool_size = (3,3)),
+        # Max-poooling layer, using a 2 * 2 pool size
+        tf.keras.layers.MaxPooling2D(pool_size = (2,2)),
         
+        ## SECOND CONVOLUTION
+        
+        # Convolutional layer. Learn 32 filters using a 4 * 4 kernel
+        tf.keras.layers.Conv2D(
+            32, (4,4), activation="relu")
+        ,
+        # Max-pooling layer, using a 2 * 2 pool size
+        tf.keras.layers.MaxPooling2D(pool_size=(2,2)),
         
         # Flatten units
         tf.keras.layers.Flatten(),
         
         # Add a hidden layer with dropout
-        tf.keras.layers.Dense(256, activation="relu"),
-        tf.keras.layers.Dropout(0.2),
-        
-        # Add a hidden layer with dropout
         tf.keras.layers.Dense(128, activation="relu"),
         tf.keras.layers.Dropout(0.4),
-
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(64, activation="relu"),
-        tf.keras.layers.Dropout(0.4),  
         
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(32, activation="relu"),
-        tf.keras.layers.Dropout(0.4),   
-        
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(16, activation="relu"),
-        tf.keras.layers.Dropout(0.4),
-          
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(8, activation="relu"),
-        tf.keras.layers.Dropout(0.4),     
-         
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(4, activation="relu"),
-        tf.keras.layers.Dropout(0.4),  
-
-        # Add a hidden layer with dropout
-        tf.keras.layers.Dense(2, activation="relu"),
-        tf.keras.layers.Dropout(0.4),      
-          
         # Add an output layer with output units for all 43 categories of road signs
         tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
                     
     ])
+    
+    # Train a neural network
+    model.compile(
+        optimizer="adam",
+        loss="categorical_crossentropy",
+        metrics = ["accuracy"]
+    )
+    
+        
+    # model = tf.keras.models.Sequential([
+    #     ## FIRST CONVOLUTION
+        
+    #     # Convolutional layer. Learn 32 filters using a 4*4 kernel
+    #     tf.keras.layers.Conv2D(
+    #         32, (4,4), activation="relu", input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)
+    #     ),
+        
+    #     # Max-poooling layer, using a 3 * 3 pool size
+    #     tf.keras.layers.MaxPooling2D(pool_size = (3,3)),
+        
+        
+    #     # Flatten units
+    #     tf.keras.layers.Flatten(),
+        
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(256, activation="relu"),
+    #     tf.keras.layers.Dropout(0.2),
+        
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(128, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),
+
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(64, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),  
+        
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(32, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),   
+        
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(16, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),
+          
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(8, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),     
+         
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(4, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),  
+
+    #     # Add a hidden layer with dropout
+    #     tf.keras.layers.Dense(2, activation="relu"),
+    #     tf.keras.layers.Dropout(0.4),      
+          
+    #     # Add an output layer with output units for all 43 categories of road signs
+    #     tf.keras.layers.Dense(NUM_CATEGORIES, activation="softmax")
+                    
+    # ])
     
     # Train a neural network
     model.compile(
