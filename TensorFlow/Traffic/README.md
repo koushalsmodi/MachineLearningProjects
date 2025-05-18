@@ -49,7 +49,7 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 **Baseline Accuracy** (random guessing):  
 1/43= 2.3%.
 
-Both models surpass the baseline and so have room for improvement. 
+Both models surpass the baseline by 2x.
 
 ---
 
