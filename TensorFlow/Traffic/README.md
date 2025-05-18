@@ -43,8 +43,7 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 
 
 ## Sample Output from Model 1
-![Model 1](image-1.png)
-
+![alt text](image-2.png)
 ## Sample Output from Model 2
 ![Model 2](image.png)
 
