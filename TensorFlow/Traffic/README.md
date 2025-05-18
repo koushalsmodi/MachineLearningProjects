@@ -52,7 +52,9 @@ Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to class
 **Baseline Accuracy** (random guessing):  
 1/43= 2.3%.
 
-Model 1 (the deeper CNN) significantly outperforms Model 2 (the shallow CNN with more dense layers) in the task of traffic sign multiclass classification on the GTSRB dataset.
+**Model Performance:**  
+- **Model 1** (Deeper CNN) achieves significantly higher accuracy than **Model 2** (Shallow CNN with more dense layers) on the GTSRB traffic sign classification task.  
+- This demonstrates that deeper convolutional architectures are better suited for capturing the complex features required in this multiclass classification problem.
 ---
 
 ## Requirements
