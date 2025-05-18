@@ -1,14 +1,63 @@
-### README Summary
+# Traffic Sign Multiclass Classification with TensorFlow
 
-Dataset: https://benchmark.ini.rub.de/?section=gtsrb&subsection=news
+**Dataset**: https://benchmark.ini.rub.de/?section=gtsrb&subsection=news
 
-This project implements and compares two convolutional neural network (CNN) architectures on the German Traffic Sign Recognition Benchmark (GTSRB) dataset using TensorFlow/Keras for the task of road sign classification across 43 categories of road signs such as stop signs, speed limit signs, yield signs, and so on.
+This project implements and compares two Convolutional Neural Network (CNN) architectures on the German Traffic Sign Recognition Benchmark (GTSRB) dataset using TensorFlow/Keras for the task of road sign classification across **43 categories** of road signs such as stop signs, speed limit signs, yield signs, and so on.
 
-# Model 1
-The first model uses a relatively shallow architecture with 2 convolutional layers (64 and 32 filters) followed by max pooling, flattening, and only 1 dense hidden layer, and a softmax output. It achieves a training accuracy of ~5.6% and a test accuracy of ~5.4% over 10 epochs. Despite using fewer layers, it consumes more training time per epoch due to larger filter sizes and higher complexity in early layers.
+--
 
-# Model 2
-The second model takes a different apporach by using only 1 convolutional layer (32 filters) and a larger max pooling size, followed by an extensive series of densely connected layers with dropout for regularization (to prevent overfitting). This model trains signficantly faster (6-10s per epoch) and shows slighly imporved test accuracy ~5.4%.
+## Project Summary
 
-![alt text](image.png)
+Using TensorFlow/Keras, 2 distinct CNN models are trained and evaluated to classify traffic signs. Both models are evaluated on **training accuracy and test accuracy**.
+
+--- 
+# Model 1: Deeper CNN
+
+** Architecture**:
+- 2 Convolutional Layers: 64 filters and 32 filtes
+- Max Pooling
+- Flattening
+- 1 Dense Hidden Layer
+- Output Layer: Softmax (43 classes)
+
+**Performance**:
+- Training Accuracy: ~6.1%
+- Test Accuracy: ~6.0%
+- Training Time: Longer due to higher filter complexity
+
+# Model 2: Shallow CNN with more Dense Layers
+
+**Architecture**:
+- 1 Convolutional Layer: 32 filters
+- Max Pooling (larger size)
+- Multiple Dense Layers
+- Dropout Regularization
+- Output Layer: Softmax (43 classes)
+
+**Performance**:
+- Training Accuracy: ~6.0%
+- Test Accuracy: ~5.4%
+- Training Time: Significantly faster (6–10 seconds per epoch)
+
+> Model 2 is significantly faster and avoid early complexity by relying on dense layers and dropout.
+
+## Sample Output
+![Model 2]](image.png)
 Note: baseline accuracy is 1/43= 2.3%.
+
+## 📊 Accuracy Comparison
+
+**Baseline Accuracy** (random guessing):  
+1/43= 2.3%.
+
+Both models surpass the baseline and so have room for improvement. 
+
+---
+
+## Requirements
+
+Install dependencies from `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+python3 traffic.py directory_name
