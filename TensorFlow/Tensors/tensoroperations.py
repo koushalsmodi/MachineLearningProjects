@@ -66,3 +66,30 @@ array([[ 13,   5,  -3,  18,   2],
        [ 12, -72,   5,  26,  11],
        [ -4,  92,  17, -22, -13]])
 """
+
+# Comparison with pre-built numpy function
+import time
+
+x = np.random.random((20,100))
+y = np.random.random((20,100))
+
+t0 = time.time()
+for _ in range(1000):
+  z = x+y
+  z = np.maximum(z,0.)
+print("Took: {0: .2f} s".format(time.time() - t0))
+# Took:  0.01 s
+
+t0 = time.time()
+for _ in range(1000):
+  z = naive_add(x,y)
+  z = naive_relu(z)
+print("Took: {0: .2f} s".format(time.time() - t0))
+# Took:  2.08 s
+
+
+"""
+When running TensorFlow code on a GPU, element-wise operations are executed via fully vectorized CUDA implementations that can best
+utilize the highly parallel GPU chip architecture
+
+"""
