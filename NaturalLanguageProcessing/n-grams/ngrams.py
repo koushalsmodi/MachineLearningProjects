@@ -38,7 +38,14 @@ def load_data(directory):
   for filename in os.listdir(directory):
     with open(os.path.join(directory, filename)) as f:
       contents.extend([
+        # reads the entire contents of the file as a single string
+        # and then split the sequence of characters into pieces (tokens)
+        # "It's great!" -> "It", "'s", "great", "!"
           word.lower() for word in nltk.word_tokenize(f.read())
+          # "The" becomes "the"
+          
+          # Acceptable: hello
+          # otherwise not accepted like: "!", "123"
           if any(c.isalpha() for c in word)
       ])
   return contents
