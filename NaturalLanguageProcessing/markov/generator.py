@@ -21,3 +21,17 @@ print()
 for i in range(5):
   print(text_model.make_sentence())
   print()
+  
+"""
+Output:
+  
+I myself could move thee, I will speak to lady afterward In way of the which we will go.
+
+Then he was dead and rotten; sweet chucks, beat not the creaking of shoes nor the hand that stabbed thy father bore it.
+
+And may it please you to your offices.
+
+Re-enter MISTRESS FORD come forward AJAX.
+
+Sir, I say to you.
+  """
