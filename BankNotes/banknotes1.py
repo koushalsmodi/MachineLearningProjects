@@ -43,3 +43,12 @@ print(f"Model name: {type(model).__name__}")
 print(f"Correct: {correct}")
 print(f"Incorrect: {incorrect}")
 print(f"Classification accuracy: {100*correct/total: .2f}")
+
+import numpy as np
+
+new_data = np.array([3.19, -15.15314, 2.53, 2.95])
+new_data = new_data.reshape(1, -1)
+
+
+result = model.predict(new_data)
+print(result)
