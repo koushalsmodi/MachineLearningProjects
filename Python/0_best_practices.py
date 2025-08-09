@@ -10,6 +10,3 @@ t = 0.5
 pressure = base_pressure  * np.cos(wave_number * x - angular_frequency * t)
 print(pressure)
 
-from IPython.display import YouTubeVideo
-YouTubeVideo('kM9zcfRtOqo')
-
