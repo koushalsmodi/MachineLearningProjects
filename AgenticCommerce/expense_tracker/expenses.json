@@ -1,0 +1,1 @@
+{"counter": 4, "expenses": {"1": {"description": "BMW", "amount": 42.0, "category": "Car"}, "2": {"description": "MacBook", "amount": 11.0, "category": "Electronics"}, "3": {"description": "T-Shirt", "amount": 10.0, "category": "Clothing"}}}
