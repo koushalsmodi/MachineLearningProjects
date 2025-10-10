@@ -53,24 +53,29 @@ The `products.json` file stores data as follows:
         }
     }
 }
+```
+
+---
 
 ## 🚀 How to Run
 
 1. Make sure you have **Python 3.8+** installed.
-
 2. Save your script as `product_catalog.py` and ensure it's in the same folder as (or will create) `products.json`.
-
 3. Open your terminal in the project directory and run:
-   ```bash
-   python3 product_catalog.py
 
+```bash
+python3 product_catalog.py
+```
 
-## 🚀 Example Usage
+---
 
+## 📖 Example Usage
 
+```
 === Product Catalog ===
 1. View all products
 2. Filter by category
 3. Filter by price range
 4. Add a new product
 5. Save and Exit
+```
