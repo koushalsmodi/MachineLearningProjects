@@ -1,0 +1,35 @@
+{
+    "counter": 6,
+    "product": {
+        "1": {
+            "each_product_name": "Water Bottle",
+            "each_product_category": "Accessories",
+            "each_product_price": 12.0,
+            "each_product_stock": 50
+        },
+        "2": {
+            "each_product_name": "Cricket bat",
+            "each_product_category": "Sports",
+            "each_product_price": 42.0,
+            "each_product_stock": 200
+        },
+        "3": {
+            "each_product_name": "Notebook",
+            "each_product_category": "Stationery",
+            "each_product_price": 55.0,
+            "each_product_stock": 1111
+        },
+        "4": {
+            "each_product_name": "Macbook",
+            "each_product_category": "Electronics",
+            "each_product_price": 2000.0,
+            "each_product_stock": 37
+        },
+        "5": {
+            "each_product_name": "Wireless Mouse",
+            "each_product_category": "Electronics",
+            "each_product_price": 25.99,
+            "each_product_stock": 30
+        }
+    }
+}
