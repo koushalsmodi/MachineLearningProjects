@@ -96,6 +96,7 @@ def filter_by_price_range(all_products):
     print("Filter by price range")  
     price_user_low = float(input("Enter lower price for the range: $ "))
     price_user_high = float(input("Enter higher price for the range: $ "))
+    
     print(f"For filter - low price: ${price_user_low} and high price: ${price_user_high}, here are the matches: ")
     for counter, each_product in all_products.items():
         each_product_price = each_product.get('each_product_price')
