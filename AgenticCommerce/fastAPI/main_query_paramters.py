@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 app = FastAPI()
-
+# Server -> Client
 # optional, default, required
 @app.get("/items/{item_id}")
 async def read_user_item(item_id: str, prod : str, price : int = 100, description : str | None = None):
