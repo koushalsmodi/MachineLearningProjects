@@ -7,7 +7,7 @@ class FilePaths(str, Enum):
     koushal = "koushal"
 
 app = FastAPI()
-
+# Server -> Client
 @app.get("/files/{file_name}")
 async def read_file(file_name: FilePaths):
     if file_name is FilePaths.john:
