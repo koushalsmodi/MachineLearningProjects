@@ -1,3 +1,5 @@
 fastapi[standard]
 pytest
 fastapi
+datetime
+typing
