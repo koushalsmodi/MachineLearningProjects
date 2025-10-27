@@ -1,5 +1,7 @@
 from main import app
 from fastapi.testclient import TestClient
+from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
+
 
 client = TestClient(app)
 
@@ -32,3 +34,17 @@ def test_read_product():
     data = response.json()
     assert isinstance(data, list)
     assert len(data) >= 1
+    
+@app.post("/products", response_model = ProductOut)
+def test_create_cart_item():
+    
+    cart_data = {
+        "product_id": 10,
+        "quantity": 2000
+    }
+    
+    response = client.post("/cart/add", json = cart_data)
+    assert response.status_code == 200 
+    data = response.json()
+    assert data["product_id"] == cart_data["product_id"]
+    
