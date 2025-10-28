@@ -69,12 +69,35 @@ def test_create_cart_item():
     assert data["quantity"] == cart_data["quantity"]
     assert data["subtotal"] == data["price"] * data["quantity"]
     
+def test_read_cart():
     
+    product_data = {
+        "name": "Apple",
+        "description": "macbook",
+        "price": 42.00,
+        "currency": "USD",
+        "inventory": 2000,
+        "category": "Electronics"
+    }
+    products_response = client.post("/products", json = product_data)
+    assert products_response.status_code == 200 
     
+    product_json = products_response.json()
+    product_id = product_json["id"]
     
-   
+    cart_data = {
+        "product_id": product_id,
+        "quantity": 2
+    }
     
+    cart_response = client.post("/cart/add", json = cart_data)
+    assert cart_response.status_code == 200 
     
+    response = client.get("/cart")
+    assert response.status_code == 200
     
-    
-    
+    cart_json = response.json()
+    assert isinstance(cart_json, dict)
+    assert "items" in cart_json
+    assert isinstance(cart_json["items"], list)
+    assert len(cart_json["items"]) > 0
