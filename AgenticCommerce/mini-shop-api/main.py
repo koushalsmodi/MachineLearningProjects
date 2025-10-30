@@ -81,39 +81,37 @@ async def read_cart():
 
 # POST: Client -> Server 
 # Purpose: convert cart to order
-@app.post("/checkout", response_model = Order)
+@app.post("/checkout", response_model=Order)
 async def create_order(checkoutin: CheckoutIn):
+    global next_order_id
     if not cart:
-        return {"no items in the cart for ordering"}
-    
-    total = 0.0
-    for item in cart:
-        total += item.subtotal
-    
-    shipping = 10.0
-    tax = total * .10
-    
-    grand_total = total + shipping  + tax 
-     
-    order_obj = Order(
-    order_id = next_order_id,
-    customer_name = checkoutin.customer_name,
-    email = checkoutin.email,
-    items = cart,
-    shipping_price = shipping,
-    tax_price = tax ,
-    total_price =  grand_total,
-    paid = True ,
-    status = "paid" ,
-    created_at = datetime.now()
-    
-    )
-    
-    orders.append(order_obj)
-    return orders
+        raise HTTPException(status_code=400, detail="No items in the cart for ordering")
 
+    total = sum(item.subtotal for item in cart)
+    shipping = 10.0
+    tax = total * 0.10
+    grand_total = total + shipping + tax
+
+    order_obj = Order(
+        order_id=next_order_id,
+        customer_name=checkoutin.customer_name,
+        email=checkoutin.email,
+        items=cart.copy(),
+        shipping_price=shipping,
+        tax_price=tax,
+        total_price=grand_total,
+        paid=True,
+        status="paid",
+        created_at=datetime.now()
+    )
+
+    orders.append(order_obj)
+    next_order_id += 1
+    cart.clear()  
+
+    return order_obj
 # Get: Server -> Client
 # Purpose: list all completed orders
-@app.get("/orders", response_model = list[Order])
+@app.get("/orders", response_model=list[Order])
 async def read_order():
     return orders
