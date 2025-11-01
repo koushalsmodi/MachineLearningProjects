@@ -114,7 +114,7 @@ async def create_order(checkoutin: CheckoutIn):
     )
 
     orders.append(order_obj)
-    logging.info("Order {order_obj.order_id} completed successfully - total {grand_total}")
+    logging.info(f"Order {order_obj.order_id} completed successfully - total {grand_total}")
     next_order_id += 1
     cart.clear()  
 
@@ -123,5 +123,5 @@ async def create_order(checkoutin: CheckoutIn):
 # Purpose: list all completed orders
 @app.get("/orders", response_model=list[Order])
 async def read_order():
-    logging.debug("Orders list requested - {len(orders)} orders total")
+    logging.debug(f"Orders list requested - {len(orders)} orders total")
     return orders
