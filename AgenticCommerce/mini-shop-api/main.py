@@ -4,7 +4,10 @@ from fastapi import HTTPException
 from datetime import datetime
 import logging
 # time of log event, severity (eg: INFO, WARNING), message
-logging.basicConfig(level = logging.INFO, format = '%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level = logging.INFO, 
+                    format = '%(asctime)s - %(levelname)s - %(message)s',
+                    filename = 'mini_shop.log',
+                    filemode='a')
 
 
 products = []
