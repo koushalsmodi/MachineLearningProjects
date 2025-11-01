@@ -6,7 +6,7 @@ import logging
 # time of log event, severity (eg: INFO, WARNING), message
 logging.basicConfig(level = logging.INFO, 
                     format = '%(asctime)s - %(levelname)s - %(message)s',
-                    filename = 'mini_shop.log',
+                    filename = 'mini_shop_demo.log',
                     filemode='a')
 
 
