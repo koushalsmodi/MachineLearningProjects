@@ -112,16 +112,19 @@ async def create_order(checkoutin: CheckoutIn):
     for attempt in range(3):
         result = simulate_payment(0.8)
         if result:
-            logging.info(f"Payment simulation succeeded in attempt {attempt}")
+            logging.info(f"Payment simulation succeeded in attempt {attempt+1}")
             paid = True
             status = "paid"
             break
         
         else:
-            logging.info(f"Payment simulation failed in attempt {attempt}")
+            logging.info(f"Payment simulation failed in attempt {attempt+1}")
             status = "failed"
     if not paid:
+        logging.error("Payment failed after 3 retries")
+        status = "failed"
         raise HTTPException(500, "Payment failed after 3 retries.")
+
         
     order_obj = Order(
         order_id=next_order_id,
