@@ -3,10 +3,12 @@ from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, Checko
 from fastapi import HTTPException
 from datetime import datetime
 import logging
+import random
+
 # time of log event, severity (eg: INFO, WARNING), message
 logging.basicConfig(level = logging.INFO, 
                     format = '%(asctime)s - %(levelname)s - %(message)s',
-                    filename = 'mini_shop_demo.log',
+                    filename = 'mini_shop.log',
                     filemode='a')
 
 
@@ -89,6 +91,10 @@ async def read_cart():
         
     return display_cart_summary
 
+def simulate_payment(probability_for_true):
+    return random.random() < probability_for_true
+
+
 # POST: Client -> Server 
 # Purpose: convert cart to order
 @app.post("/checkout", response_model=Order)
@@ -102,7 +108,21 @@ async def create_order(checkoutin: CheckoutIn):
     shipping = 10.0
     tax = total * 0.10
     grand_total = total + shipping + tax
-
+    paid = False
+    for attempt in range(3):
+        result = simulate_payment(0.8)
+        if result:
+            logging.info(f"Payment simulation succeeded in attempt {attempt}")
+            paid = True
+            status = "paid"
+            break
+        
+        else:
+            logging.info(f"Payment simulation failed in attempt {attempt}")
+            status = "failed"
+    if not paid:
+        raise HTTPException(500, "Payment failed after 3 retries.")
+        
     order_obj = Order(
         order_id=next_order_id,
         customer_name=checkoutin.customer_name,
@@ -111,13 +131,13 @@ async def create_order(checkoutin: CheckoutIn):
         shipping_price=shipping,
         tax_price=tax,
         total_price=grand_total,
-        paid=True,
-        status="paid",
+        paid=paid,
+        status=status,
         created_at=datetime.now()
     )
 
     orders.append(order_obj)
-    logging.info(f"Order {order_obj.order_id} completed successfully - total {grand_total}")
+    logging.info(f"Order {order_obj.order_id} finalized with status {status} - total {grand_total}")
     next_order_id += 1
     cart.clear()  
 
