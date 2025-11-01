@@ -30,14 +30,14 @@ async def create_product(product_in: ProductIn):
     
     products.append(result)
     next_available_id += 1
-    logging.info("Product {id} created: {name}, price {price} {currency}")
+    logging.info(f"Product {result['id']} created: {result['name']}, price {result['price']} {result['currency']}")
     
     return result
 
 # Get: Server -> Client
 @app.get("/products", response_model = list[ProductOut])
 async def read_products():
-    logging.debug("Product list requested - {len(products)} items")
+    logging.debug(f"Product list requested - {len(products)} items")
     return products 
 
 # POST: Client -> Server
@@ -62,7 +62,7 @@ async def create_cart_item(cart_item_in: CartItemIn):
             subtotal = subtotal
             )
             cart.append(cart_item_out)
-            logging.info("Added Product {product_id} * {quantity} to cart (subtotal {subtotal}).")
+            logging.info(f"Added Product {product['id']} x {quantity} to cart (subtotal {subtotal}).")
             return cart_item_out
 
     raise HTTPException(status_code = 404, detail = "Product not found")
@@ -82,7 +82,7 @@ async def read_cart():
         "items": cart,
         "total": total
     }
-    logging.info("Cart viewed - {len(cart)} items, total {total}")
+    logging.info(f"Cart viewed - {len(cart)} items, total {total}")
         
     return display_cart_summary
 
@@ -90,7 +90,7 @@ async def read_cart():
 # Purpose: convert cart to order
 @app.post("/checkout", response_model=Order)
 async def create_order(checkoutin: CheckoutIn):
-    logging.info("Checkout initiated by {checkoutin.email}")
+    logging.info(f"Checkout initiated by {checkoutin.email}")
     global next_order_id
     if not cart:
         raise HTTPException(status_code=400, detail="No items in the cart for ordering")
@@ -114,7 +114,7 @@ async def create_order(checkoutin: CheckoutIn):
     )
 
     orders.append(order_obj)
-    logging.info("Order {order_id} completed successfully - total {grand_total}")
+    logging.info("Order {order_obj.order_id} completed successfully - total {grand_total}")
     next_order_id += 1
     cart.clear()  
 
