@@ -12,10 +12,15 @@ load_dotenv()
 VALID_API_KEY = os.getenv("API_KEY")
 
 # time of log event, severity (eg: INFO, WARNING), message
-logging.basicConfig(level = logging.INFO, 
-                    format = '%(asctime)s - %(levelname)s - %(message)s',
-                    filename = 'mini_shop.log',
-                    filemode='a')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("mini_shop.log", mode='w'),
+        logging.StreamHandler()
+    ]
+)
+
 
 
 products = []
@@ -24,7 +29,7 @@ cart = []
 orders = []
 next_order_id = 1
 
-async def verify_token(x_api_key: str = Header()):
+async def verify_token(x_api_key: str = Header(...)):
     if x_api_key != VALID_API_KEY:
         raise HTTPException(status_code = 401, detail = "Unauthorized")
     return True
@@ -102,14 +107,14 @@ async def read_cart():
         
     return display_cart_summary
 
-def simulate_payment(probability_for_true):
+def simulate_payment(probability_for_true: float) -> bool:
     return random.random() < probability_for_true
 
 
 # POST: Client -> Server 
 # Purpose: convert cart to order
-@app.post("/checkout", response_model=Order, token_check: bool = Depends(verify_token))
-async def create_order(checkoutin: CheckoutIn):
+@app.post("/checkout")
+async def create_order(checkoutin: CheckoutIn, response_model=Order, token_check: bool = Depends(verify_token)):
     logging.info(f"Checkout initiated by {checkoutin.email}")
     global next_order_id
     if not cart:
