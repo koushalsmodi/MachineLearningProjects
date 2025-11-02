@@ -24,8 +24,8 @@ cart = []
 orders = []
 next_order_id = 1
 
-async def verify_token(authorization: str = Header()):
-    if authorization != VALID_API_KEY:
+async def verify_token(x_api_key: str = Header()):
+    if x_api_key != VALID_API_KEY:
         raise HTTPException(status_code = 401, deatil = "Unauthorized")
     return True
 
@@ -57,7 +57,6 @@ async def read_products():
 
 # POST: Client -> Server
 # Purpose: add an item to the cart
-@api_key_required
 @app.post("/cart/add", response_model = CartItemOut)
 async def create_cart_item(cart_item_in: CartItemIn):
     
@@ -109,7 +108,6 @@ def simulate_payment(probability_for_true):
 
 # POST: Client -> Server 
 # Purpose: convert cart to order
-@api_key_required
 @app.post("/checkout", response_model=Order)
 async def create_order(checkoutin: CheckoutIn):
     logging.info(f"Checkout initiated by {checkoutin.email}")
@@ -160,7 +158,7 @@ async def create_order(checkoutin: CheckoutIn):
     return order_obj
 # Get: Server -> Client
 # Purpose: list all completed orders
-@api_key_required
+
 @app.get("/orders", response_model=list[Order])
 async def read_order():
     logging.debug(f"Orders list requested - {len(orders)} orders total")
