@@ -1,9 +1,17 @@
-from fastapi import FastAPI
-from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
-from fastapi import HTTPException
+import os
 from datetime import datetime
 import logging
 import random
+import requests
+from fastapi import FastAPI
+from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
+from fastapi import HTTPException
+from dotenv import load_dotenv
+from flask import request, abort, current_app
+from functools import wraps
+
+load_dotenv()
+VALID_API_KEY = os.getenv("API_KEY")
 
 # time of log event, severity (eg: INFO, WARNING), message
 logging.basicConfig(level = logging.INFO, 
@@ -18,12 +26,20 @@ cart = []
 orders = []
 next_order_id = 1
 
+def api_key_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        api_key = request.headers.get('X-API-Key')
+        if not api_key or api_key != VALID_API_KEY:
+            abort(401, description = "Unauthorized: Invalid or missing API key")
+        return f(*args, **kwargs)
+    return decorated_function
+
 app = FastAPI()
 
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Mini Shop API"}
-
 
 # POST: Client -> Server
 @app.post("/products", response_model = ProductOut)
@@ -47,8 +63,10 @@ async def read_products():
 
 # POST: Client -> Server
 # Purpose: add an item to the cart
+@api_key_required
 @app.post("/cart/add", response_model = CartItemOut)
 async def create_cart_item(cart_item_in: CartItemIn):
+    
     for product in products:
         if product["id"] == cart_item_in.product_id:
             name = product["name"]
@@ -97,6 +115,7 @@ def simulate_payment(probability_for_true):
 
 # POST: Client -> Server 
 # Purpose: convert cart to order
+@api_key_required
 @app.post("/checkout", response_model=Order)
 async def create_order(checkoutin: CheckoutIn):
     logging.info(f"Checkout initiated by {checkoutin.email}")
@@ -147,6 +166,7 @@ async def create_order(checkoutin: CheckoutIn):
     return order_obj
 # Get: Server -> Client
 # Purpose: list all completed orders
+@api_key_required
 @app.get("/orders", response_model=list[Order])
 async def read_order():
     logging.debug(f"Orders list requested - {len(orders)} orders total")
