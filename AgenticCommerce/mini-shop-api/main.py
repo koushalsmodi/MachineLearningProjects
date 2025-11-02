@@ -3,12 +3,10 @@ from datetime import datetime
 import logging
 import random
 import requests
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends, Header
 from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
 from fastapi import HTTPException
 from dotenv import load_dotenv
-from flask import request, abort, current_app
-from functools import wraps
 
 load_dotenv()
 VALID_API_KEY = os.getenv("API_KEY")
@@ -26,14 +24,10 @@ cart = []
 orders = []
 next_order_id = 1
 
-def api_key_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        api_key = request.headers.get('X-API-Key')
-        if not api_key or api_key != VALID_API_KEY:
-            abort(401, description = "Unauthorized: Invalid or missing API key")
-        return f(*args, **kwargs)
-    return decorated_function
+async def verify_token(authorization: str = Header()):
+    if authorization != VALID_API_KEY:
+        raise HTTPException(status_code = 401, deatil = "Unauthorized")
+    return True
 
 app = FastAPI()
 
