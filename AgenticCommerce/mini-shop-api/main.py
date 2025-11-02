@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 import logging
 import random
-import requests
 from fastapi import FastAPI, Depends, Header
 from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
 from fastapi import HTTPException
