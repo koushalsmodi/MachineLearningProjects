@@ -113,8 +113,8 @@ def simulate_payment(probability_for_true: float) -> bool:
 
 # POST: Client -> Server 
 # Purpose: convert cart to order
-@app.post("/checkout")
-async def create_order(checkoutin: CheckoutIn, response_model=Order, token_check: bool = Depends(verify_token)):
+@app.post("/checkout", response_model=Order)
+async def create_order(checkoutin: CheckoutIn,  token_check: bool = Depends(verify_token)):
     logging.info(f"Checkout initiated by {checkoutin.email}")
     global next_order_id
     if not cart:
