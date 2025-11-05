@@ -4,4 +4,3 @@ fastapi
 datetime
 typing
 google-generativeai
-google-genai
