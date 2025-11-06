@@ -63,6 +63,7 @@ async def create_recommendation_request(query):
         "message": "Here's the product Gemini recommends",
         "recommendation": response.text
     }
+    logging.info(f"Query {query}, Recommendation: {response.text}")
     return json_output
         
 
