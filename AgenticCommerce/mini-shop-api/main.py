@@ -1,7 +1,11 @@
-import os
-from datetime import datetime
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
+import google.generativeai as genai
+import os 
+
 import logging
 import random
+from datetime import datetime
 from fastapi import FastAPI, Depends, Header
 from models import ProductIn, ProductOut, CartItemIn, CartItemOut, Order, CheckoutIn
 from fastapi import HTTPException
@@ -20,8 +24,6 @@ logging.basicConfig(
     ]
 )
 
-
-
 products = []
 next_available_id = 1
 cart = []
@@ -38,6 +40,28 @@ app = FastAPI()
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Mini Shop API"}
+
+genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
+
+# POST: Client -> Server
+@app.post("/recommend")
+async def create_recommendation_request(query):
+    # products is a list available as a global variable
+    prompt = f"""You are a product recommender and your role is to \n
+    take user's query: {query} and advice the user with a small list or with just 1 item \n
+    based on the user's budget and preferences \n
+    from the catalog: {query} based on the user query. \n
+    The user will be the buyer so it is of utmost importance to provide a correct response \n
+    so as to have our sale successful. \n
+    Output should be short and human-readable. \n
+    """
+
+    model = genai.GenerativeModel("gemini-2.5-pro")
+
+    response = model.generate_content(prompt)
+    print(f"Response: {response.text}")
+        
+
 
 # POST: Client -> Server
 @app.post("/products", response_model = ProductOut)
