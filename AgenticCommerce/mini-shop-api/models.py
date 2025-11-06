@@ -1,8 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 from typing import List
-
-
+    
 class ProductIn(BaseModel):
     name: str 
     description : str 
