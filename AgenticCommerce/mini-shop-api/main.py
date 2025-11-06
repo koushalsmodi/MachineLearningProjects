@@ -58,11 +58,18 @@ async def create_recommendation_request(query):
 
     model = genai.GenerativeModel("gemini-2.5-pro")
 
-    response = model.generate_content(prompt)
+    try:
+        response = model.generate_content(prompt)
+        print(f"\n--- {query} ({response.text}) ---")
+        print(response.text.strip() if response.text else "No response returned.")
+    except Exception as e:
+        print(f"Error processing {query}: {e}")
+        
     json_output = {
         "message": "Here's the product Gemini recommends",
         "recommendation": response.text
     }
+    
     logging.info(f"Query {query}, Recommendation: {response.text}")
     return json_output
         
