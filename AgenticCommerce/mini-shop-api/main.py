@@ -61,7 +61,7 @@ async def create_recommendation_request(query):
     response = model.generate_content(prompt)
     json_output = {
         "message": "Here's the product Gemini recommends",
-        "recommendation": {response.text}
+        "recommendation": response.text
     }
     return json_output
         
