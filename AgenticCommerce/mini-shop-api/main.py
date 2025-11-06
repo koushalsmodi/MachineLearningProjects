@@ -59,6 +59,7 @@ async def create_recommendation_request(query):
     model = genai.GenerativeModel("gemini-2.5-pro")
 
     response = model.generate_content(prompt)
+    print("Here's the product Gemini recommends")
     print(f"Response: {response.text}")
         
 
