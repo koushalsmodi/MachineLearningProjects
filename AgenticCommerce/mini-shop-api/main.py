@@ -50,7 +50,7 @@ async def create_recommendation_request(query):
     prompt = f"""You are a product recommender and your role is to \n
     take user's query: {query} and advice the user with a small list or with just 1 item \n
     based on the user's budget and preferences \n
-    from the catalog: {query} based on the user query. \n
+    from the catalog: {products} based on the user query. \n
     The user will be the buyer so it is of utmost importance to provide a correct response \n
     so as to have our sale successful. \n
     Output should be short and human-readable. \n
