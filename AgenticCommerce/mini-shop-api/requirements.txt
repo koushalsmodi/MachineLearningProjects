@@ -5,4 +5,5 @@ datetime
 typing
 google-generativeai
 langchain
-langchain_google_genai
+dataclasses
+langchain[anthropic]
