@@ -1,6 +1,6 @@
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
-import google.generativeai as genai
+from langchain.chat_models import init_chat_model
 import os 
 
 import logging
@@ -41,7 +41,8 @@ app = FastAPI()
 def read_root():
     return {"message": "Welcome to Mini Shop API"}
 
-genai.configure(api_key = os.getenv("GEMINI_API_KEY"))
+print("API key loaded:", os.getenv("ANTHROPIC_API_KEY")[:10])
+
 
 # POST: Client -> Server
 @app.post("/recommend")
@@ -56,23 +57,27 @@ async def create_recommendation_request(query):
     Output should be short and human-readable. \n
     """
 
-    model = genai.GenerativeModel("gemini-2.5-pro")
+    model = init_chat_model(
+        "claude-sonnet-4-5-20250929",
+        temperature = 0.7,
+        timeout=  30,
+        max_tokens = 1000,
+    )
 
     try:
-        response = model.generate_content(prompt)
+        response = model.invoke(prompt)
         print(f"\n--- {query} ({response.text}) ---")
         print(response.text.strip() if response.text else "No response returned.")
     except Exception as e:
         print(f"Error processing {query}: {e}")
         
     json_output = {
-        "message": "Here's the product Gemini recommends",
+        "message": "Here's the product Anthropic recommends",
         "recommendation": response.text
     }
     
     logging.info(f"Query {query}, Recommendation: {response.text}")
     return json_output
-        
 
 
 # POST: Client -> Server
