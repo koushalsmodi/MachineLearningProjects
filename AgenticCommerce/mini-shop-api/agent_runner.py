@@ -33,25 +33,27 @@ You have access to 4 tools:
 """)
 
 # 2. Creating tools
-@tool
+
 # get_products() -> calls products
+@tool
 def get_products():
     return read_products()
 
-@tool
 # get_price(product_id) -> looks up price
-def get_price():
+@tool
+def get_price(product_id):
 
+# add_to_cart() -> calls cart/add
 @tool 
 def add_to_cart():
     create_cart_item()
-# add_to_cart() -> calls cart/add
 
 
-@tool
+query = "Recommend a product to buy under $100"
 # recommend() -> calls / recommend
-def recommend():
-    create_recommendation_request()
+@tool
+def recommend(query):
+    return create_recommendation_request(query)
 
 # 3. Configure a model with parameters
 model = init_chat_model(
@@ -83,5 +85,5 @@ agent = create_agent(
 )
 
 respponse = agent.invoke({
-    "messages": [{"role": "user", "content": "Recommend a product to buy under $100"}]
+    "messages": [{"role": "user", "content": query}]
 })
