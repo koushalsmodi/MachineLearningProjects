@@ -42,7 +42,12 @@ def get_products():
 # get_price(product_id) -> looks up price
 @tool
 def get_price(product_id):
-
+    all_products = get_products()
+    for product in all_products:
+        if product_id == product["id"]:
+            price = product["price"]
+        return price
+        
 # add_to_cart() -> calls cart/add
 @tool 
 def add_to_cart(product_id, quantity):
