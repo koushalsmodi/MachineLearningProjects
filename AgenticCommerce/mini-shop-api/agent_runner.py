@@ -5,118 +5,156 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 print("API key loaded:", os.getenv("ANTHROPIC_API_KEY")[:10])
+
 import requests
 from langchain.tools import tool
-from langchain.chat_models import init_chat_model
-from langchain.agents import create_agent
-from dataclasses import dataclass
+from langchain_anthropic import ChatAnthropic
 
-from main import read_products, create_cart_item, create_recommendation_request
+from main import products
 
 # 1. System prompt
-
-
 SYSTEM_PROMPT = """
 You are a product recommender and shopping assistant.
 Advise the user with just one product based on user's budget and preferences
 from the Mini-Shop catalog.
 Output should be short and human-readable.
 
+The user's budget is $50.
+
 You have access to four tools:
 - get_products: view all available products
-- get_price: look up a product's price  by ID
-- add_to_cart: add one best product that fits the user's budget.
-- recommend: use this to ask the Claude model for suggestions.
+- get_price: look up a product's price by ID
+- add_to_cart: add one best product that fits the user's budget
+- recommend: use this to get AI recommendations
 
-Always stay within the budget limit stored in memory.
+Always stay within the budget limit of $50.
 """
 
+query = "Recommend a product to buy under $50 and add it to my cart"
 
-query = "Recommend a product to buy under $100"
-
-# 2. Creating tools
-
-# get_products() -> calls products
+# 2. Creating tools (using HTTP requests to the API)
 @tool
 def get_products() -> list[dict]:
     """Fetch the full product catalog from the Mini-shop.
     Returns a list of product dictionaries with id, name, price, description, currency, inventory, category
     """
-    products = read_products()
-    return products
+    try:
+        response = requests.get("http://127.0.0.1:8000/products")
+        if response.status_code == 200:
+            return response.json()
+        return []
+    except Exception as e:
+        print(f"Error fetching products: {e}")
+        return []
 
-# get_price(product_id) -> looks up price
 @tool
 def get_price(product_id: int) -> float | str:
-    """
-    Look up the price of a product by its ID
-    """
-    all_products = read_products()
-    for product in all_products:
-        if product_id == product["id"]:
-            return product["price"]
-    return "Product not found"
+    """Look up the price of a product by its ID"""
+    try:
+        response = requests.get("http://127.0.0.1:8000/products")
+        if response.status_code == 200:
+            all_products = response.json()
+            for product in all_products:
+                if product_id == product["id"]:
+                    return product["price"]
+        return "Product not found"
+    except Exception as e:
+        return f"Error: {e}"
         
-# add_to_cart() -> calls cart/add
 @tool 
-def add_to_cart(product_id, quantity):
-    """ 
-    Add the selected product to the shopping cart.
+def add_to_cart(product_id: int, quantity: int) -> str:
+    """Add the selected product to the shopping cart.
     Returns a confirmation string for the agent.
     """
-    create_cart_item(product_id, quantity)
-    return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+    try:
+        api_key = os.getenv("API_KEY")
+        headers = {"x-api-key": api_key}
+        payload = {"product_id": product_id, "quantity": quantity}
+        
+        response = requests.post(
+            "http://127.0.0.1:8000/cart/add",
+            json=payload,
+            headers=headers
+        )
+        
+        if response.status_code == 200:
+            return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+        else:
+            return f"Failed to add to cart: {response.text}"
+    except Exception as e:
+        return f"Error adding to cart: {e}"
 
-# recommend() -> calls / recommend
 @tool
-def recommend(query: str) -> str:
-    """
-    Use the Claude recommender to suggest the best product for the given query.
+def recommend(user_query: str) -> str:
+    """Use the Claude recommender to suggest the best product for the given query.
     Returns the text recommendation.
     """
-    response = requests.get("http://127.0.0.1:8000/products")
-    if response.status_code == 200:
-        return str(response.json())
-    else:
-        return "Error fetching products."
+    try:
+        response = requests.post(
+            "http://127.0.0.1:8000/recommend",
+            json={"query": user_query}
+        )
+        if response.status_code == 200:
+            data = response.json()
+            return data.get("recommendation", "No recommendation available")
+        else:
+            return "Error fetching recommendation"
+    except Exception as e:
+        return f"Error: {e}"
 
-# 3. Memory 
-memory = {"budget": 50}
+# 3. Create tools list
+tools = [get_products, get_price, add_to_cart, recommend]
 
-# 4. Configure a model with parameters
-model = init_chat_model(
-    "claude-sonnet-4-5-20250929",
-    temperature = 0.1,
-    timeout = 60,
-    max_tokens = 1000
+# 4. Configure model with tools
+model = ChatAnthropic(
+    model="claude-sonnet-4-20250514",
+    temperature=0.1,
+    timeout=60,
+    max_tokens=1000
 )
 
-model_with_tools = model.bind(tools=[get_products, get_price, add_to_cart, recommend])
+model_with_tools = model.bind_tools(tools)
 
-# 5. Define a response format
-@dataclass
-class ResponseFormat:
-    """Response schema for the agent."""
-    query: str
-    best_product: str | None = None 
+# 5. Simple execution loop
+messages = [
+    {"role": "system", "content": SYSTEM_PROMPT},
+    {"role": "user", "content": query}
+]
 
-# 6. Add memory
-from langgraph.checkpoint.memory import InMemorySaver
-checkpointer = InMemorySaver()
+print("\n=== Starting Agent ===\n")
 
-# 6. Create and run the agent
-agent = create_agent(
-    model = model_with_tools,
-    system_prompt = SYSTEM_PROMPT,
-    response_model = ResponseFormat,
-    checkpointer = checkpointer
-)
-
-response = agent.invoke(
-    {
-        "messages": [{"role": "user", "content": query}]
-    },
-    config={"configurable": {"thread_id": "session-1"}}
-)
-
-print("\nAgent Response:\n", response)
+# Run for up to 10 iterations to handle tool calls
+for i in range(10):
+    print(f"Iteration {i+1}")
+    response = model_with_tools.invoke(messages)
+    messages.append({
+        "role": "assistant", 
+        "content": response.content, 
+        "tool_calls": response.tool_calls if hasattr(response, 'tool_calls') else []
+    })
+    
+    # Check if there are tool calls
+    if not response.tool_calls:
+        print("\n=== Final Response ===")
+        print(response.content)
+        break
+    
+    # Execute tool calls
+    for tool_call in response.tool_calls:
+        tool_name = tool_call["name"]
+        tool_args = tool_call["args"]
+        
+        print(f"Calling tool: {tool_name} with args: {tool_args}")
+        
+        # Find and execute the tool
+        tool_func = next((t for t in tools if t.name == tool_name), None)
+        if tool_func:
+            result = tool_func.invoke(tool_args)
+            print(f"Tool result: {result}\n")
+            messages.append({
+                "role": "tool",
+                "content": str(result),
+                "tool_call_id": tool_call["id"]
+            })
+        else:
+            print(f"Tool {tool_name} not found")
