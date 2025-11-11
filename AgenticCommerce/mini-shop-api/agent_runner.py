@@ -32,36 +32,48 @@ You have access to 4 tools:
 - recommend: user this 
 """)
 
+query = "Recommend a product to buy under $100"
+
 # 2. Creating tools
 
 # get_products() -> calls products
 @tool
-def get_products():
-    return read_products()
+def get_products() -> list[dict]:
+    """Fetch the full product catalog from the Mini-shop.
+    Returns a list of product dictionaries with id, name, price, description, currency, inventory, category
+    """
+    products = read_products()
+    return products
 
 # get_price(product_id) -> looks up price
 @tool
-def get_price(product_id):
-    price = None
-    all_products = get_products()
+def get_price(product_id: int) -> float | str:
+    """
+    Look up the price of a product by its ID
+    """
+    all_products = read_products()
     for product in all_products:
         if product_id == product["id"]:
-            price = product["price"]
-    
-    return price
+            return product["price"]
+    return "Product not found"
         
 # add_to_cart() -> calls cart/add
 @tool 
 def add_to_cart(product_id, quantity):
+    """ 
+    Add the selected product to the shopping cart.
+    Returns a confirmation string for the agent.
+    """
     create_cart_item(product_id, quantity)
-    return f"Added product: {product_id} (quantity: {quantity} to cart)"
+    return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
 
 
-query = "Recommend a product to buy under $100"
+
 # recommend() -> calls / recommend
 @tool
-def recommend(query):
-    return create_recommendation_request(query)
+def recommend(query: str) -> str:
+    result =  create_recommendation_request(query)
+    return result
 
 memory = {"budget": 100}
 
