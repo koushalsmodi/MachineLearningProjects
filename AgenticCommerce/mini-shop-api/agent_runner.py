@@ -42,6 +42,7 @@ def get_products():
 # get_price(product_id) -> looks up price
 @tool
 def get_price(product_id):
+    price = None
     all_products = get_products()
     for product in all_products:
         if product_id == product["id"]:
@@ -53,6 +54,7 @@ def get_price(product_id):
 @tool 
 def add_to_cart(product_id, quantity):
     create_cart_item(product_id, quantity)
+    return f"Added product: {product_id} (quantity: {quantity} to cart)"
 
 
 query = "Recommend a product to buy under $100"
