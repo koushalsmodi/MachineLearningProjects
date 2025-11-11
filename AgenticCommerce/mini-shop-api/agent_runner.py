@@ -46,7 +46,8 @@ def get_price(product_id):
     for product in all_products:
         if product_id == product["id"]:
             price = product["price"]
-        return price
+    
+    return price
         
 # add_to_cart() -> calls cart/add
 @tool 
