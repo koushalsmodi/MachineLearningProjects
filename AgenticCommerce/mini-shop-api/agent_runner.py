@@ -55,6 +55,8 @@ query = "Recommend a product to buy under $100"
 def recommend(query):
     return create_recommendation_request(query)
 
+memory = {"budget": 100}
+
 # 3. Configure a model with parameters
 model = init_chat_model(
     "claude-sonnet-4-5-20250929",
