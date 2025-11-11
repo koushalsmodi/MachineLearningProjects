@@ -45,8 +45,8 @@ def get_price(product_id):
 
 # add_to_cart() -> calls cart/add
 @tool 
-def add_to_cart():
-    create_cart_item()
+def add_to_cart(product_id, quantity):
+    create_cart_item(product_id, quantity)
 
 
 query = "Recommend a product to buy under $100"
