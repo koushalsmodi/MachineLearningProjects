@@ -23,7 +23,7 @@ Advise the user with just one product based on user's budget and preferences
 from the Mini-Shop catalog.
 Output should be short and human-readable.
 
-The user's budget is $50.
+The user's budget is $memory['budget'].
 
 You have access to five tools:
 - get_products: view all available products
@@ -32,10 +32,10 @@ You have access to five tools:
 - recommend: use this to get AI recommendations
 - checkout: use this confirm for purchase confirmation
 
-Always stay within the budget limit of $50.
+Always stay within the budget limit of $memory['budget'].
 """
 
-query = "Recommend a product to buy under $50 and add it to my cart and proceed to checkout."
+query = "Recommend a product to buy under $memory['budget'] and add it to my cart and proceed to checkout."
 
 # 2. Creating tools (using HTTP requests to the API)
 @tool
@@ -78,18 +78,27 @@ def add_to_cart(product_id: int, quantity: int) -> str:
         api_key = os.getenv("API_KEY")
         headers = {"x-api-key": api_key}
         payload = {"product_id": product_id, "quantity": quantity}
+        price = get_price(product_id)
         
-        response = requests.post(
-            "http://127.0.0.1:8000/cart/add",
-            json=payload,
-            headers=headers
-        )
-        logging.info("Tool called: add_to_cart(product_id, quantity)")
+        subtotal = price * quantity
+        if subtotal <= memory["budget"]:
+            response = requests.post(
+                "http://127.0.0.1:8000/cart/add",
+                json=payload,
+                headers=headers
+            )
+            logging.info("Tool called: add_to_cart(product_id, quantity)")
         
-        if response.status_code == 200:
-            return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+            if response.status_code == 200:
+                return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+                logging.info(f"Attempt to add {product_id} X qty {quantity} subtotal: ${subtotal} - within budget - added")
+            
+            else:
+                return f"Failed to add to cart: {response.text}"
         else:
-            return f"Failed to add to cart: {response.text}"
+            return f"Price exceeded the user budget {memory['budget']}"
+        logging.error(f"Price exceeded the user budget {memory['budget']}")
+        
     except Exception as e:
         return f"Error adding to cart: {e}"
 
