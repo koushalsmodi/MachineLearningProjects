@@ -100,8 +100,8 @@ def add_to_cart(product_id: int, quantity: int) -> str:
             else:
                 return f"Failed to add to cart: {response.text}"
         else:
-            logging.error(f"Rejected: subtotal ${subtotal} > budget {memory['budget']}")
-            return f"Rejected: subtotal ${subtotal} > budget {memory['budget']}"
+            logging.error(f"Rejected: subtotal ${subtotal:.2f} > budget {memory['budget']}")
+            return f"Cannot add product: subtotal ${subtotal} > budget {memory['budget']}"
             
         
     except Exception as e:
