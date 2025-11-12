@@ -3,7 +3,7 @@ pytest
 fastapi
 datetime
 typing
-google-generativeai
 langchain
 dataclasses
-langchain[anthropic]
+langchain-anthropic
+langgraph
