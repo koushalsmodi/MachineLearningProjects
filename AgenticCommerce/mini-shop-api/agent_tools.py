@@ -32,7 +32,7 @@ You have access to five tools:
 - recommend: use this to get AI recommendations
 - checkout: use this confirm for purchase confirmation
 
-Always stay within the budget limit of $memory['budget'].
+Always stay within the budget limit of ${memory['budget']}.
 """
 
 query = f"Recommend a product to buy under ${memory['budget']} and add it to my cart and proceed to checkout."
