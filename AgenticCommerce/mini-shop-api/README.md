@@ -21,12 +21,22 @@ python3 agent_runner.py      # run agent
 ```
 
 ## 📊 Architecture
+
 The agent operates autonomously within defined constraints, making intelligent purchasing decisions while maintaining full transparency through comprehensive logging.
+
+### System Flow
+
+![Smart Shopper Sequence Diagram](docs/smart-shopper-sequence-diagram.png)
+
+The diagram above illustrates the interaction between:
+- **User**: Provides natural language shopping goals
+- **Smart Shopper AI**: LangChain-powered agent with Claude LLM
+- **Tools Layer**: Python-based agent tools for API interactions
+- **Mini-Shop API**: FastAPI backend handling products, cart, and checkout
 
 ## 📸 Example Output
 
 **Successful autonomous purchase flow:**
-
 ```bash
 === Starting Agent ===
 
