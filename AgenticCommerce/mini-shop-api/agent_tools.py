@@ -158,3 +158,34 @@ for i in range(10):
             })
         else:
             print(f"Tool {tool_name} not found")
+            
+"""Output:
+base) koushalsmodi@Koushals-MacBook-Pro mini-shop-api % python3 agent_tools.py         
+API key loaded: sk-ant-api
+API key loaded: sk-ant-api
+
+=== Starting Agent ===
+
+Iteration 1
+2025-11-11 17:33:09,070 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+Calling tool: recommend with args: {'user_query': 'best product under $50 budget'}
+Tool result: Based on your $50 budget, I recommend:
+
+**HP Spectre** - $49
+- Category: Laptop
+- Great value right at your budget limit
+- In stock with good availability
+
+This is the only laptop option that fits within your $50 budget from our current catalog.
+
+Iteration 2
+2025-11-11 17:33:17,772 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+Calling tool: add_to_cart with args: {'product_id': 3, 'quantity': 1}
+Tool result: Added product ID: 3 (quantity: 1) to the cart.
+
+Iteration 3
+2025-11-11 17:33:21,092 - INFO - HTTP Request: POST https://api.anthropic.com/v1/messages "HTTP/1.1 200 OK"
+
+=== Final Response ===
+Great! I've added the **HP Spectre laptop** ($49) to your cart. It's a fantastic laptop that uses almost your entire $50 budget, leaving you with $1 to spare. This gives you excellent value for a laptop at this price point!
+"""
