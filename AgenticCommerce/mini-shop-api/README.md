@@ -1,126 +1,64 @@
-# Mini Shop API
+# 🛒 Smart Shopper Agent
 
-A lightweight FastAPI-based product management system demonstrating RESTful API design principles and serving as a foundation for agentic commerce applications.
+An Agentic AI prototype that autonomously searches, recommends, and purchases products from the Mini-Shop API - enforcing user budgets and logging all actions.
 
-## Overview
+## ✨ Features
+- 💬 Natural-language goal input
+- 🔧 Dynamic tool calling (recommend → add_to_cart → checkout)
+- 💰 Hardcoded budget guardrail ($500)
+- 📋 Full audit logging to `logs/mini_shop.log`
 
-Mini Shop API provides a simple yet robust backend for managing product catalogs. Built with FastAPI and Pydantic, it offers type-safe endpoints for creating and retrieving products, making it ideal for AI agents and automated commerce systems to interact with product data programmatically.
+## 🛠️ Tech Stack
+- **FastAPI** backend (`main.py`)
+- **LangChain + Anthropic Claude** for reasoning
+- **Python logging** for audit trail
+- **Memory store** for preferences
 
-## Features
-
-- **Product Creation**: POST endpoint for adding new products with automatic ID generation
-- **Product Retrieval**: GET endpoint for fetching all products in the catalog
-- **Type Safety**: Pydantic models ensure data validation and structured responses
-- **RESTful Design**: Standard HTTP methods and status codes
-- **Comprehensive Testing**: Full test suite using pytest and FastAPI TestClient
-- **Agentic-Ready**: Structured API suitable for AI agent interactions
-
-## Project Structure
-
-```
-.
-├── main.py           # FastAPI application and route handlers
-├── models.py         # Pydantic data models (ProductIn, ProductOut)
-├── test_api.py       # Comprehensive test suite
-└── requirements.txt  # Project dependencies
-```
-
-## Installation
-
-1. Clone the repository
-2. Install dependencies:
+## 🚀 Quick Start
 ```bash
-pip install -r requirements.txt
+fastapi dev main.py          # start API
+python3 agent_runner.py      # run agent
 ```
 
-## Running the Application
+## 📊 Architecture
+The agent operates autonomously within defined constraints, making intelligent purchasing decisions while maintaining full transparency through comprehensive logging.
 
-Start the development server:
+## 📸 Example Output
+
+**Successful autonomous purchase flow:**
+
 ```bash
-fastapi dev main.py
+=== Starting Agent ===
+
+Iteration 1
+Calling tool: recommend with args: {'user_query': 'best product under $500 budget'}
+Tool result: Based on your $500 budget, I recommend:
+
+**HP Spectre - $249**
+- Great laptop option well within your budget
+- Leaves you with $251 to spare
+- In stock with 40 units available
+
+Iteration 2
+Calling tool: add_to_cart with args: {'product_id': 2, 'quantity': 1}
+Tool result: Added product ID: 2 (quantity: 1) to the cart.
+
+Iteration 3
+Calling tool: checkout with args: {}
+Tool result: Purchase confirmed. Order placed successfully.
+
+=== Final Response ===
+✅ **Order Complete!**
+
+I've successfully recommended and purchased the **HP Spectre laptop for $249** - 
+a great mid-range laptop that fits well within your $500 budget. 
+Your order has been placed and confirmed.
+
+You saved $251 from your budget while getting an excellent quality laptop.
 ```
 
-The API will be available at `http://localhost:8000`
-
-Access interactive API documentation at `http://localhost:8000/docs`
-
-## API Endpoints
-
-### GET `/`
-Welcome endpoint returning API information.
-
-**Response:**
-```json
-{
-  "message": "Welcome to Mini Shop API"
-}
-```
-
-### POST `/products`
-Create a new product in the catalog.
-
-**Request Body:**
-```json
-{
-  "name": "Apple",
-  "description": "macbook",
-  "price": 42.00,
-  "currency": "USD",
-  "inventory": 2000,
-  "category": "Electronics"
-}
-```
-
-**Response:**
-```json
-{
-  "id": 1,
-  "name": "Apple",
-  "description": "macbook",
-  "price": 42.00,
-  "currency": "USD",
-  "inventory": 2000,
-  "category": "Electronics"
-}
-```
-
-### GET `/products`
-Retrieve all products from the catalog.
-
-**Response:**
-```json
-[
-  {
-    "id": 1,
-    "name": "Apple",
-    "description": "macbook",
-    "price": 42.00,
-    "currency": "USD",
-    "inventory": 2000,
-    "category": "Electronics"
-  }
-]
-```
-
-## Data Models
-
-### ProductIn
-Input model for creating products:
-- `name`: Product name (string)
-- `description`: Product description (string)
-- `price`: Product price (float)
-- `currency`: Currency code (string)
-- `inventory`: Stock quantity (integer)
-- `category`: Product category (string)
-
-### ProductOut
-Output model including system-generated fields:
-- All ProductIn fields plus:
-- `id`: Unique product identifier (integer, auto-generated)
-
-## Testing
-
-Run the test suite:
-```bash
-pytest test_api.py -v
-```
+**Key Capabilities Demonstrated:**
+- 🎯 Autonomous decision-making across 3 tool calls
+- 💵 Budget compliance verified ($249 < $500)
+- 📝 Complete audit trail in logs
+- ✅ End-to-end transaction completion
