@@ -45,8 +45,16 @@ print("API key loaded:", os.getenv("ANTHROPIC_API_KEY")[:10])
 
 
 # POST: Client -> Server
+# Add this model at the top with your other models
+from pydantic import BaseModel
+
+class RecommendationRequest(BaseModel):
+    query: str
+
+# Then update the endpoint:
 @app.post("/recommend")
-async def create_recommendation_request(query):
+async def create_recommendation_request(request: RecommendationRequest):
+    query = request.query
     # products is a list available as a global variable
     prompt = f"""You are a product recommender and your role is to \n
     take user's query: {query} and advice the user with a small list or with just 1 item \n
@@ -78,7 +86,6 @@ async def create_recommendation_request(query):
     
     logging.info(f"Query {query}, Recommendation: {response.text}")
     return json_output
-
 
 # POST: Client -> Server
 @app.post("/products", response_model = ProductOut)
