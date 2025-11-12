@@ -78,20 +78,23 @@ def add_to_cart(product_id: int, quantity: int) -> str:
         api_key = os.getenv("API_KEY")
         headers = {"x-api-key": api_key}
         payload = {"product_id": product_id, "quantity": quantity}
+        
         price = get_price(product_id)
-        price = isinstance(price, (int, float))
+        if not isinstance(price, (int, float)):
+            logging.error(f"Invalid price for product {product_id}: {price}")
+            return f"Error: invalid price for product {product_id}."
         
         subtotal = price * quantity
+        
         if subtotal <= memory["budget"]:
             response = requests.post(
                 "http://127.0.0.1:8000/cart/add",
                 json=payload,
                 headers=headers
             )
-            logging.info("Tool called: add_to_cart(product_id, quantity)")
+            logging.info(f"Attempt to add {product_id} X qty {quantity} subtotal: ${subtotal} - within budget - added")
         
             if response.status_code == 200:
-                logging.info(f"Attempt to add {product_id} X qty {quantity} subtotal: ${subtotal} - within budget - added")
                 return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
                 
             else:
@@ -102,6 +105,7 @@ def add_to_cart(product_id: int, quantity: int) -> str:
             
         
     except Exception as e:
+        logging.error(f"Error adding to cart: {e}")
         return f"Error adding to cart: {e}"
 
 @tool
