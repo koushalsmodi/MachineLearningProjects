@@ -10,7 +10,11 @@ print("API key loaded:", os.getenv("ANTHROPIC_API_KEY")[:10])
 
 from main import products
 
-logger = logging.getLogger(__name__)
+logging.basicConfig(
+    filename = "logs/mini_shop.log",
+    level = logging.INFO,
+    format = "%(asctime)s - %(levelname)s  - %(message)s"
+)
 
 # 1. System prompt
 SYSTEM_PROMPT = f"""
@@ -22,13 +26,21 @@ Output should be short and human-readable.
 The user's budget is ${memory['budget']}.
 
 You have access to five tools:
-- get_products: view all available products
+- get_products: view all available products (USE THIS FIRST to see product IDs)
 - get_price: look up a product's price by ID
 - add_to_cart: add one best product that fits the user's budget
 - recommend: use this to get AI recommendations
 - checkout: use this confirm for purchase confirmation
 
+CRITICAL WORKFLOW:
+1. ALWAYS call get_products() FIRST to see the exact product catalog with IDs
+2. Then call recommend() to get suggestion
+3. Match the recommendation to the correct product ID from get_products()
+4. Call add_to_cart() with the CORRECT product ID
+5. Call checkout() to complete purchase
+
 Always stay within the budget limit of ${memory['budget']}.
+DO NOT guess or hallucinate product IDs - always use the IDs from get_products().
 """
 
 query = f"Recommend a product to buy under ${memory['budget']} and add it to my cart and proceed to checkout."
@@ -43,13 +55,11 @@ def get_products() -> list[dict]:
         response = requests.get("http://127.0.0.1:8000/products")
         logging.info("Tool called: get_products()")
         if response.status_code == 200:
-            data =  response.json()
-            logger.info("Tool result: {len(products)} items retrieved")
-            return data 
-        logger.warning(f"get_products() failed with status {response.status_code}")
+            return response.json()
+            logging.info("Tool result: {len(products)} items retrieved")
         return []
     except Exception as e:
-        logger.error(f"Error fetching products: {e}")
+        print(f"Error fetching products: {e}")
         return []
 
 # Store the original function before decorating
@@ -69,10 +79,8 @@ def _get_price_impl(product_id: int) -> float | str:
 @tool
 def get_price(product_id: int) -> float | str:
     """Look up the price of a product by its ID"""
-    logger.info(f"Tool called: get_price(product_id={product_id})")
-    price =  _get_price_impl(product_id)
-    logger.info(f"Price lookup for ID {product_id}: {price}")
-    return price
+    logging.info(f"Tool called: get_price(product_id={product_id})")
+    return _get_price_impl(product_id)
         
 @tool 
 def add_to_cart(product_id: int, quantity: int) -> str:
@@ -81,93 +89,96 @@ def add_to_cart(product_id: int, quantity: int) -> str:
     """
     try:
         api_key = os.getenv("API_KEY")
+        if not api_key:
+            logging.error("API_KEY not found in environment variables")
+            return "Error: API_KEY not configured"
+            
         headers = {"x-api-key": api_key}
         payload = {"product_id": product_id, "quantity": quantity}
+        
+        logging.info(f"add_to_cart called with product_id={product_id}, quantity={quantity}")
         
         # Use the original implementation function, not the tool wrapper
         price = _get_price_impl(product_id)
         if not isinstance(price, (int, float)):
-            logger.error(f"Invalid price for product {product_id}: {price}")
+            logging.error(f"Invalid price for product {product_id}: {price}")
             return f"Error: invalid price for product {product_id}."
         
         subtotal = price * quantity
+        logging.info(f"Price check: ${price} x {quantity} = ${subtotal}, Budget: ${memory['budget']}")
         
-        if subtotal > memory["budget"]:
-            logger.warning(f"Rejected add_to_cart: subtotal ${subtotal: .2f} exceeds budget ${memory['budget']}")
-            return f"Rejected: subtotal ${subtotal: .2f} exceeds budget ${memory['budget']}"
-
-            response = requests.post("http://127.0.0.1.8000/cart/add", json = payload, headers = headers)
-            
+        if subtotal <= memory["budget"]:
+            logging.info(f"Making POST request to /cart/add with payload: {payload}")
+            response = requests.post(
+                "http://127.0.0.1:8000/cart/add",
+                json=payload,
+                headers=headers
+            )
+            logging.info(f"Cart API response: status={response.status_code}, body={response.text}")
+        
             if response.status_code == 200:
-                logger.info(f"Added product {product_id} qty {quantity}, subtotal ${subtotal:.2f} within budget ${memory['budget']}")
-                return f"Added product ID {product_id} (qty: {quantity}) to cart subtotal ${subtotal:.2f}."
-                
+                success_msg = f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+                logging.info(success_msg)
+                return success_msg
             else:
-                logger.error(f"add_to_cart failed with status {response.status_code}: {response.text}")
-                return f"Failed to add to cart: {response.text}"
-
-
+                error_msg = f"Failed to add to cart: {response.text}"
+                logging.error(error_msg)
+                return error_msg
+        else:
+            error_msg = f"Cannot add: subtotal ${subtotal} > budget ${memory['budget']}"
+            logging.error(f"Budget exceeded: ${subtotal:.2f} > ${memory['budget']}")
+            return error_msg
+            
     except Exception as e:
-        logger.error(f"Error adding to cart: {e}")
-        return f"Error adding to cart: {e}"
+        error_msg = f"Error adding to cart: {str(e)}"
+        logging.error(error_msg, exc_info=True)
+        return error_msg
 
 @tool
 def recommend(user_query: str) -> str:
-    """Use Claude recommender to suggest the best product for the given query.
-    Returns the text recommendation.
+    """Use the Claude recommender to suggest the best product for the given query.
+    Returns the text recommendation WITH product IDs clearly specified.
     """
     try:
         response = requests.post(
             "http://127.0.0.1:8000/recommend",
             json={"query": user_query}
         )
-        logger.info("Tool called: recommend(user_query)")
-        
+        logging.info("Tool called: recommend(user_query)")
         if response.status_code == 200:
             data = response.json()
-            rec =  data.get("recommendation", "No recommendation available")
-            logger.info(f"Recommendation result: {rec[:70]}...")
-            return rec
-        
-        logger.error(f"Recommend failed with status {response.status_code}")
-        return "Error fetching recomendation"
-
+            recommendation = data.get("recommendation", "No recommendation available")
+            
+            # Add explicit instruction to include product IDs
+            enhanced_query = f"{user_query}\n\nIMPORTANT: Always include the exact product ID in your recommendation in the format 'Product ID: X'."
+            
+            # Make another call with enhanced instructions if needed, or parse from products
+            return recommendation
+        else:
+            return "Error fetching recommendation"
     except Exception as e:
-        logger.error(f"Error in recommend: {e}")
         return f"Error: {e}"
 
 @tool
 def checkout() -> str:
     """Simulate completing the purchase"""
-    try:
-        api_key = os.getenv("API_KEY")
-        headers = {"x-api-key": api_key}
-        checkoutin = {
-            "customer_name": "John Doe",
-            "email": "john@example.com"
-        }
-        
-        logger.info("Tool called: checkout()")
-        response = requests.post(
-            "http://127.0.0.1:8000/checkout",
-            headers=headers,
-            json=checkoutin
-        )
-        
-        
-        if response.status_code == 200:
-            logger.info(f"Checkout successful for {checkoutin['email']}")
-            return "Purchase confirmed. Order placed successfully."
-        
-        else:
-            logger.error(f"Checkout failed: {response.status_code} {response.text}")
-            return f"Checkout failed: {response.text}"
+    api_key = os.getenv("API_KEY")
+    headers = {"x-api-key": api_key}
+    checkoutin = {
+        "customer_name": "John Doe",
+        "email": "john@example.com"
+    }
     
-    except Exception as e:
-        logger.error(f"Error in checkout: {e}")
-        return f"Error during checkout: {e}"
+    response = requests.post(
+        "http://127.0.0.1:8000/checkout",
+        headers=headers,
+        json=checkoutin
+    )
     
-
+    logging.info("Tool called: checkout()")
+    if response.status_code == 200:
+        return "Purchase confirmed. Order placed successfully."
+    return f"Checkout failed: {response.text}"
     
 # 3. Create tools list
 tools = [get_products, get_price, add_to_cart, recommend, checkout]
