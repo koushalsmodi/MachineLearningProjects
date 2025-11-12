@@ -17,13 +17,13 @@ logging.basicConfig(
 )
 
 # 1. System prompt
-SYSTEM_PROMPT = """
+SYSTEM_PROMPT = f"""
 You are a product recommender and shopping assistant.
 Advise the user with just one product based on user's budget and preferences
 from the Mini-Shop catalog.
 Output should be short and human-readable.
 
-The user's budget is $memory['budget'].
+The user's budget is ${memory['budget']}.
 
 You have access to five tools:
 - get_products: view all available products
@@ -35,7 +35,7 @@ You have access to five tools:
 Always stay within the budget limit of $memory['budget'].
 """
 
-query = "Recommend a product to buy under $memory['budget'] and add it to my cart and proceed to checkout."
+query = f"Recommend a product to buy under ${memory['budget']} and add it to my cart and proceed to checkout."
 
 # 2. Creating tools (using HTTP requests to the API)
 @tool
@@ -79,6 +79,7 @@ def add_to_cart(product_id: int, quantity: int) -> str:
         headers = {"x-api-key": api_key}
         payload = {"product_id": product_id, "quantity": quantity}
         price = get_price(product_id)
+        price = isinstance(price, (int, float))
         
         subtotal = price * quantity
         if subtotal <= memory["budget"]:
@@ -90,14 +91,15 @@ def add_to_cart(product_id: int, quantity: int) -> str:
             logging.info("Tool called: add_to_cart(product_id, quantity)")
         
             if response.status_code == 200:
-                return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
                 logging.info(f"Attempt to add {product_id} X qty {quantity} subtotal: ${subtotal} - within budget - added")
-            
+                return f"Added product ID: {product_id} (quantity: {quantity}) to the cart."
+                
             else:
                 return f"Failed to add to cart: {response.text}"
         else:
-            return f"Price exceeded the user budget {memory['budget']}"
-        logging.error(f"Price exceeded the user budget {memory['budget']}")
+            logging.error(f"Rejected: subtotal ${subtotal} > budget {memory['budget']}")
+            return f"Rejected: subtotal ${subtotal} > budget {memory['budget']}"
+            
         
     except Exception as e:
         return f"Error adding to cart: {e}"
