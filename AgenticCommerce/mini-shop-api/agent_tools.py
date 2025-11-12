@@ -54,12 +54,11 @@ def get_products() -> list[dict]:
         print(f"Error fetching products: {e}")
         return []
 
-@tool
-def get_price(product_id: int) -> float | str:
-    """Look up the price of a product by its ID"""
+# Store the original function before decorating
+def _get_price_impl(product_id: int) -> float | str:
+    """Implementation of get_price logic"""
     try:
         response = requests.get("http://127.0.0.1:8000/products")
-        logging.info("Tool called: getprice(product_id)")
         if response.status_code == 200:
             all_products = response.json()
             for product in all_products:
@@ -68,6 +67,12 @@ def get_price(product_id: int) -> float | str:
         return "Product not found"
     except Exception as e:
         return f"Error: {e}"
+
+@tool
+def get_price(product_id: int) -> float | str:
+    """Look up the price of a product by its ID"""
+    logging.info(f"Tool called: get_price(product_id={product_id})")
+    return _get_price_impl(product_id)
         
 @tool 
 def add_to_cart(product_id: int, quantity: int) -> str:
@@ -79,7 +84,8 @@ def add_to_cart(product_id: int, quantity: int) -> str:
         headers = {"x-api-key": api_key}
         payload = {"product_id": product_id, "quantity": quantity}
         
-        price = get_price(product_id)
+        # Use the original implementation function, not the tool wrapper
+        price = _get_price_impl(product_id)
         if not isinstance(price, (int, float)):
             logging.error(f"Invalid price for product {product_id}: {price}")
             return f"Error: invalid price for product {product_id}."
@@ -101,7 +107,7 @@ def add_to_cart(product_id: int, quantity: int) -> str:
                 return f"Failed to add to cart: {response.text}"
         else:
             logging.error(f"Rejected: subtotal ${subtotal:.2f} > budget {memory['budget']}")
-            return f"Cannot add product: subtotal ${subtotal} > budget {memory['budget']}"
+            return f"Cannot add: subtotal ${subtotal} > budget {memory['budget']}"
             
         
     except Exception as e:
@@ -143,7 +149,7 @@ def checkout() -> str:
         json=checkoutin
     )
     
-    logging.info("Tool called: checkouts()")
+    logging.info("Tool called: checkout()")
     if response.status_code == 200:
         return "Purchase confirmed. Order placed successfully."
     return f"Checkout failed: {response.text}"
