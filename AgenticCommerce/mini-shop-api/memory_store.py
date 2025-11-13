@@ -1,0 +1,3 @@
+memory = {
+    "budget": 500
+}
