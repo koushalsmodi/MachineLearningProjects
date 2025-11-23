@@ -1,4 +1,5 @@
-# 🛒 Smart Shopper Agent
+# 🛒 Smart Shopper Agent  
+🎥 **Demo Video:** https://www.youtube.com/watch?v=01VIRZYkmcg
 
 An Agentic AI prototype that autonomously searches, recommends, and purchases products from the Mini-Shop API - enforcing user budgets and logging all actions.
 
