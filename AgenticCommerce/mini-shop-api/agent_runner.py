@@ -61,17 +61,19 @@ for i in range(10):
     
     # Execute tool calls
     for tool_call in response.tool_calls:
-        tool_name = tool_call["name"]
-        tool_args = tool_call["args"]
+        tool_name = tool_call["name"]  # "recommend"
+        tool_args = tool_call["args"] # {"user_query": "laptop under $500"}
         
         print(f"Calling tool: {tool_name} with args: {tool_args}")
         logging.info(f"Tool Call -> {tool_name} | Args: {tool_args}")
         
         # Find and execute the tool
         tool_func = next((t for t in tools if t.name == tool_name), None)
+        # Searches [get_products, get_price, add_to_cart, recommend, checkout]
+        # Finds the "recommend" function object
         if tool_func:
             try:
-                result = tool_func.invoke(tool_args)
+                result = tool_func.invoke(tool_args) # EXECUTES recommend(user_query="...")
                 print(f"Tool result: {result}\n")
                 logging.info(f"Tool Result -> {tool_name}: {result}")
                 messages.append({
