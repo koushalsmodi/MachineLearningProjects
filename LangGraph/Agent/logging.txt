@@ -1,0 +1,10 @@
+Your Conversation Log:
+You: Hi
+AI: Hello! How are you doing today? Is there anything I can help you with?
+You: I'm doing good. my name is Steve
+AI: Nice to meet you, Steve! I'm glad to hear you're doing well. What brings you here today? Is there anything particular you'd like to chat about or any way I can assist you?
+You: Who am I?
+AI: You're Steve! You just introduced yourself to me a moment ago. Beyond that, I only know what you've shared with me in our brief conversation - that your name is Steve and you're doing good today. 
+
+Is there something more specific you're wondering about, or would you like to tell me more about yourself?
+End of Conversation
