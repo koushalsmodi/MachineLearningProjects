@@ -1,3 +1,18 @@
-Counterparty/venv/
-.env
+# Python caches
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+Practice/.venv/
+LangGraph/Agent/venv/
 Counterparty/.env
+Counterparty/venv/
+
+.env
+
+# SQLite files
+*.sqlite3
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
