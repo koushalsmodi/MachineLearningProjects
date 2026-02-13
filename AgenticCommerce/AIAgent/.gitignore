@@ -23,10 +23,17 @@ build/
 *.swo
 
 # Data files
-*.db
-*.sqlite
-*.csv
-data/*.json
+data/*.db
+data/*.sqlite
+data/checkpoints.db
+data/transactions.db
+data/analytics.db
+
+# Keep mock data and config files
+!data/user_profiles.json
+!data/card_benefits.json
+!data/amex_offers.json
+!data/mock/
 
 # Jupyter
 .ipynb_checkpoints/
