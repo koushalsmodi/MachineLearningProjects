@@ -1,0 +1,107 @@
+{
+    "customers": [
+    {
+    "customer_id": "ksm_124",
+    "account_status": "active",
+    "cardmember": {
+        "firstName": "Koushal S",
+        "lastName": "Modi",
+        "email": "ksm@example.com"
+    },
+    "card_type": "Gold",
+    "remaining_credit_limit": 2000,
+    "monthly_spending_limit": 10000,
+    "location": "New York",
+    "card_details":{
+        "maskedCardNumber": "**** **** **** 1234",
+        "expiration_date": "2040-10-30"
+    },
+    "preferred_airlines": ["Air France"],
+    "preferred_hotel_chains": ["Taj", "Hyatt"],
+    "past_destinations": ["San Francisco", "New York", "Mumbai"],
+    "average_transaction_amount": 1000.0,
+    "points_balance": 2400,
+    "typical_categories": ["travel", "groceries"]
+
+    },
+
+    {
+    
+    "customer_id": "nsm_356",
+    "account_status": "active",
+    "cardmember": {
+        "firstName": "Neeshaa S",
+        "lastName": "Modii",
+        "email": "nsm@example.com"
+    },
+    "card_type": "Platinum",
+    "remaining_credit_limit": 10000,
+    "monthly_spending_limit": 24000,
+    "location": "New Jersey",
+    "card_details":{
+        "maskedCardNumber": "**** **** **** 2345",
+        "expiration_date": "2046-12-31"
+    },
+    "preferred_airlines": ["Emirates", "Lufthansa", "Swiss", "Singapore Airlines"],
+    "preferred_hotel_chains": ["Marriot", "Hilton"],
+    "past_destinations": ["San Francisco", "New York", "Mumbai", "Bharuch", "Las Vegas", "Dubai"],
+    "average_transaction_amount": 4200.0,
+    "points_balance": 60000,
+    "typical_categories": ["travel", "shopping", "eletronics", "entertainment"]
+
+    },
+
+    {
+    
+    "customer_id": "sky_369",
+    "account_status": "active",
+    "cardmember": {
+        "firstName": "Sanjay F",
+        "lastName": "Modii",
+        "email": "sky@example.com"
+    },
+    "card_type": "Preferred",
+    "remaining_credit_limit": 400,
+    "monthly_spending_limit": 2000,
+    "location": "Phoenix",
+    "card_details":{
+        "maskedCardNumber": "**** **** **** 3456",
+        "expiration_date": "2030-01-31"
+    },
+    "preferred_airlines": ["Etihad", "Air India"],
+    "preferred_hotel_chains": [],
+    "past_destinations": ["New Jersey", "Vietnam", "Dubai"],
+    "average_transaction_amount": 200.0,
+    "points_balance": 600,
+    "typical_categories": ["travel"]
+
+    },
+
+    {
+    "customer_id": "aaa_123",
+    "account_status": "closed",
+    "cardmember": {
+        "firstName": "Alex",
+        "lastName": "Rider",
+        "email": "ar@example.com"
+    },
+    "card_type": "Platinum",
+    "remaining_credit_limit": 700,
+    "monthly_spending_limit": 40000,
+    "location": "Texas",
+    "card_details":{
+        "maskedCardNumber": "**** **** **** 4567",
+        "expiration_date": "2028-04-12"
+    },
+    "preferred_airlines": ["Delta", "American"],
+    "preferred_hotel_chains": ["Accor"],
+    "past_destinations": ["Paris"],
+    "average_transaction_amount": 2000.0,
+    "points_balance": 100,
+    "typical_categories": ["travel", "dining", "entertainment"]
+
+    }
+
+]
+
+}

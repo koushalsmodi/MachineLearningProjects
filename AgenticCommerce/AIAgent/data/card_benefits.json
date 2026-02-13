@@ -1,0 +1,27 @@
+{
+    "Gold": {
+        "points_multipliers": {
+            "restaurants": {"rate": 4, "annual_cap": 50000},
+            "supermarkets": {"rate": 4, "annual_cap": 25000},
+            "flights_direct": {"rate": 3, "annual_cap": null},
+            "hotels_amex_travel": {"rate": 2, "annual_cap": null},
+            "default": {"rate": 1, "annual_cap": null}
+        },
+        "annual_fee": 250
+    },
+    "Platinum": {
+        "points_multipliers": {
+            "flights_direct": {"rate": 5, "annual_cap": 500000},
+            "hotels_amex_travel": {"rate": 5, "annual_cap": null},
+            "default": {"rate": 1, "annual_cap": null}
+        },
+        "annual_fee": 695
+    },
+    "Preferred": {
+        "points_multipliers": {
+            "default": {"rate": 1, "annual_cap": null}
+        },
+        "annual_fee": 0
+    }
+    
+}
