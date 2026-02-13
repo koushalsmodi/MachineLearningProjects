@@ -43,11 +43,11 @@
         "expiration_date": "2046-12-31"
     },
     "preferred_airlines": ["Emirates", "Lufthansa", "Swiss", "Singapore Airlines"],
-    "preferred_hotel_chains": ["Marriot", "Hilton"],
+    "preferred_hotel_chains": ["Marriott", "Hilton"],
     "past_destinations": ["San Francisco", "New York", "Mumbai", "Bharuch", "Las Vegas", "Dubai"],
     "average_transaction_amount": 4200.0,
     "points_balance": 60000,
-    "typical_categories": ["travel", "shopping", "eletronics", "entertainment"]
+    "typical_categories": ["travel", "shopping", "electronics", "entertainment"]
 
     },
 
