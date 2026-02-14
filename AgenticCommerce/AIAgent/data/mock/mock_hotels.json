@@ -1,0 +1,122 @@
+{
+    "hotels": 
+    
+    {
+        "Miami": [
+            {
+                "hotel_id": "H42",
+                "name": "Miami Marriott Biscayne Bay",
+                "chain": "Marriott",
+                "city": "Miami",
+                "location_type": "near_beach",
+                "price_per_night": 284.0,
+                "star_rating": 4,
+                "review_score": 4.4,
+                "amenities": ["pool", "gym"],
+                "rooms_available": 6
+            },
+
+            {
+                "hotel_id": "HH24",
+                "name": "Hilton Cabana Miami Beach Resort",
+                "chain": "Hilton",
+                "city": "Miami Beach",
+                "location_type": "near_beach",
+                "price_per_night": 371.0,
+                "star_rating": 4,
+                "review_score": 4.7,
+                "amenities": ["pool", "fitness center"],
+                "rooms_available": 5
+
+            },
+
+            {
+                "hotel_id": "HY16",
+                "name": "Hyatt Centric South Beach Miami",
+                "chain": "Hyatt",
+                "city": "Miami Beach",
+                "location_type": "near_beach",
+                "price_per_night": 275.0,
+                "star_rating": 4,
+                "review_score": 4,
+                "amenities": ["pool", "fitness center"],
+                "rooms_available": 7
+
+            },
+
+            {
+                "hotel_id": "TJ19",
+                "name": "Taj South Beach Miami",
+                "chain": "Taj",
+                "city": "Miami Beach",
+                "location_type": "beachfront",
+                "price_per_night": 400.0,
+                "star_rating": 5,
+                "review_score": 5,
+                "amenities": ["pool", "fitness center"],
+                "rooms_available": 7
+
+            },
+
+
+            {
+                "hotel_id": "KM55",
+                "name": "Kingfisher Miami Resort",
+                "chain": "Kingfisher",
+                "city": "Miami Beach",
+                "location_type": "beachfront",
+                "price_per_night": 600.0,
+                "star_rating": 5,
+                "review_score": 5,
+                "amenities": ["pool", "fitness center", "spa"],
+                "rooms_available": 2
+
+            },
+
+
+            {
+                "hotel_id": "IG46",
+                "name": "IHG Hotels and Resorts Miami",
+                "chain": "IHG",
+                "city": "Miami Beach",
+                "location_type": "near_beach",
+                "price_per_night": 120.0,
+                "star_rating": 3,
+                "review_score": 3,
+                "amenities": ["fitness center"],
+                "rooms_available": 4
+
+            },
+
+
+            {
+                "hotel_id": "MA34",
+                "name": "Marriott Stanton South Beach",
+                "chain": "Marriott",
+                "city": "Miami Beach",
+                "location_type": "near_beach",
+                "price_per_night": 315.0,
+                "star_rating": 4,
+                "review_score": 4,
+                "amenities": ["pool", "spa", "fitness center"],
+                "rooms_available": 6
+            },
+
+            {
+                "hotel_id": "MB03",
+                "name": "Catalina Hotel & Beach Club",
+                "chain": "Independent",
+                "city": "Miami Beach",
+                "location_type": "near_beach",
+                "price_per_night": 175.0,
+                "star_rating": 3,
+                "review_score": 3,
+                "amenities": ["beach access", "pool"],
+                "rooms_available": 6
+            }
+            
+
+        ]
+
+    }
+}
