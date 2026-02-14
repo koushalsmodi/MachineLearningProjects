@@ -1,0 +1,68 @@
+{
+    "restaurants": 
+    
+    {
+        "Miami": [
+        {
+            "restaurant_id": "R01",
+            "name": "Joe's Stone Crab",
+            "cuisine_type": "Seafood",
+            "location": "South Beach",
+            "rating": 4.5,
+            "price_range": "$$$",
+            "avg_cost_per_person": 110.0,
+            "reservations_available": true,
+            "dress_code": "Smart Casual"
+        },
+
+        {
+            "restaurant_id": "G1",
+            "name": "El Mago De Las Fritas",
+            "cuisine_type": "Burgers",
+            "location": "Little Havana",
+            "rating": 4,
+            "price_range": "$$",
+            "avg_cost_per_person": 85.0,
+            "reservations_available": true,
+            "dress_code": "Casual"
+        },
+
+        {
+            "restaurant_id": "BD1",
+            "name": "Boia De",
+            "cuisine_type": "Italian",
+            "location": "South Beach",
+            "rating": 4,
+            "price_range": "$$$",
+            "avg_cost_per_person": 90.0,
+            "reservations_available": true,
+            "dress_code": "Casual"
+        },
+
+        {
+            "restaurant_id": "Z1",
+            "name": "Zaytinya",
+            "cuisine_type": "Mediterranean",
+            "location": "South Beach",
+            "rating": 4,
+            "price_range": "$$",
+            "avg_cost_per_person": 60.0,
+            "reservations_available": false,
+            "dress_code": "Casual"
+        },
+
+        {
+            "restaurant_id": "AM4",
+            "name": "ADRIFT MARE",
+            "cuisine_type": "Mediterranean",
+            "location": "South Beach",
+            "rating": 4.6,
+            "price_range": "$$$",
+            "avg_cost_per_person": 120.0,
+            "reservations_available": true,
+            "dress_code": "Smart Casual"
+        }
+
+    ]
+    }
+}
