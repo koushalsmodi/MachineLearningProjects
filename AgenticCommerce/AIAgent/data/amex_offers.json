@@ -1,0 +1,60 @@
+{
+    "offers": [
+        {
+            "offer_id": "MAR100",
+            "merchant": "Marriott",
+            "category": "hotel",
+            "discount_type": "statement_credit",
+            "discount_value": 100,
+            "min_spend": 500,
+            "max_benefit": 100,
+            "expiry": "2026-12-31",
+            "description": "Get $100 back when you spend $500+ at Marriott"
+        },
+        {
+            "offer_id": "HIL50",
+            "merchant": "Hilton",
+            "category": "hotel",
+            "discount_type": "statement_credit",
+            "discount_value": 50,
+            "min_spend": 300,
+            "max_benefit": 50,
+            "expiry": "2026-06-30",
+            "description": "Get $50 back on $300+ at Hilton"
+        },
+        {
+            "offer_id": "DINE20",
+            "merchant": "All Restaurants",
+            "category": "dining",
+            "discount_type": "percentage",
+            "discount_value": 20,
+            "min_spend": 50,
+            "max_benefit": 50,
+            "expiry": "2026-03-31",
+            "description": "Get 20% back on dining, up to $50"
+        },
+        {
+            "offer_id": "TRAVEL5K",
+            "merchant": "Amex Travel",
+            "category": "travel",
+            "discount_type": "bonus_points",
+            "discount_value": 5000,
+            "min_spend": 1000,
+            "max_benefit": 5000,
+            "expiry": "2026-12-31",
+            "description": "Earn 5,000 bonus points on travel bookings over $1,000"
+        },
+
+        {
+            "offer_id": "EMIRATI10",
+            "merchant": "Emirates",
+            "category": "flights",
+            "discount_type": "bonus_points",
+            "discount_value": 200,
+            "min_spend": 400,
+            "max_benefit": 200,
+            "expiry": "2028-12-31",
+            "description": "Earn 200 bonus points on travel bookings over $400"
+        }
+    ]
+}
