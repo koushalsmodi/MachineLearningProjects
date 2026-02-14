@@ -1,0 +1,174 @@
+{
+    "routes": {
+        "JFK-MIA": [
+        {
+            "flight_id": "EA1",
+            "airline": "Emirates",
+            "price": 850.0,
+            "origin": "JFK",
+            "destination": "MIA",
+            "departure_time": "08:30",
+            "arrival_time": "11:45",
+            "duration_minutes": 195,
+            "stops": 0,
+            "aircraft": "Boeing 737",
+            "fare_class": "Business",
+            "seats_available": 4
+        },
+
+        {
+            "flight_id": "EA2",
+            "airline": "Emirates",
+            "price": 250.0,
+            "origin": "JFK",
+            "destination": "MIA",
+            "departure_time": "08:30",
+            "arrival_time": "11:45",
+            "duration_minutes": 195,
+            "stops": 0,
+            "aircraft": "Boeing 737",
+            "fare_class": "Economy",
+            "seats_available": 12
+        },
+
+        {
+            "flight_id": "LA19",
+            "airline": "Lufthansa",
+            "price": 420.0,
+            "origin": "JFK",
+            "destination": "MIA",
+            "departure_time": "12:30",
+            "arrival_time": "22:30",
+            "duration_minutes": 600,
+            "stops": 1,
+            "aircraft": "Airbus A320",
+            "fare_class": "Economy",
+            "seats_available": 4
+        },
+
+
+        {
+            "flight_id": "AF24",
+            "airline": "Air France",
+            "price": 600.0,
+            "origin": "JFK",
+            "destination": "MIA",
+            "departure_time": "14:30",
+            "arrival_time": "19:45",
+            "duration_minutes": 315,
+            "stops": 0,
+            "aircraft": "Boeing 737",
+            "fare_class": "First",
+            "seats_available": 2
+        }
+
+            
+        ],
+
+        "EWR-MIA": [
+
+        {
+            "flight_id": "QR21",
+            "airline": "Qatar",
+            "price": 320.0,
+            "origin": "EWR",
+            "destination": "MIA",
+            "departure_time": "04:20",
+            "arrival_time": "14:45",
+            "duration_minutes": 625,
+            "stops": 1,
+            "aircraft": "Boeing 777",
+            "fare_class": "Premium Economy",
+            "seats_available": 10
+        },
+
+        {
+            "flight_id": "EH11",
+            "airline": "Etihad",
+            "price": 280.0,
+            "origin": "EWR",
+            "destination": "MIA",
+            "departure_time": "12:30",
+            "arrival_time": "22:30",
+            "duration_minutes": 600,
+            "stops": 0,
+            "aircraft": "Boeing 737",
+            "fare_class": "Economy",
+            "seats_available": 42
+        },
+
+        {
+            "flight_id": "JP24",
+            "airline": "Japan",
+            "price": 380.0,
+            "origin": "EWR",
+            "destination": "MIA",
+            "departure_time": "06:30",
+            "arrival_time": "21:30",
+            "duration_minutes": 900,
+            "stops": 1,
+            "aircraft": "Airbus A320",
+            "fare_class": "Economy",
+            "seats_available": 4
+        }
+  
+        ],
+
+        "PHX-MIA":[
+
+        {
+            "flight_id": "SW42",
+            "airline": "Southwest",
+            "price": 290.0,
+            "origin": "PHX",
+            "destination": "MIA",
+            "departure_time": "16:20",
+            "arrival_time": "20:20",
+            "duration_minutes": 240,
+            "stops": 1,
+            "aircraft": "Boeing 777",
+            "fare_class": "Economy",
+            "seats_available": 10
+        },
+
+
+        {
+            "flight_id": "AA56",
+            "airline": "American",
+            "price": 550.0,
+            "origin": "PHX",
+            "destination": "MIA",
+            "departure_time": "10:00",
+            "arrival_time": "13:00",
+            "duration_minutes": 180,
+            "stops": 0,
+            "aircraft": "Airbus A320",
+            "fare_class": "Business",
+            "seats_available": 2
+        },
+
+        {
+            "flight_id": "FA29",
+            "airline": "Frontier",
+            "price": 120.0,
+            "origin": "PHX",
+            "destination": "MIA",
+            "departure_time": "19:00",
+            "arrival_time": "04:50",
+            "duration_minutes": 590,
+            "stops": 2,
+            "aircraft": "Airbus A320",
+            "fare_class": "Economy",
+            "seats_available": 2
+        }
+
+
+
+        ]
+    }
+}
+
+
+
+
+
