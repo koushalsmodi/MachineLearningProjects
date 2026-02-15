@@ -4,7 +4,18 @@ import json
 base_dir = 'data/mock/'
 
 def research_node(state: AgentState) -> AgentState:
-    """Find flight, hotel, and restaurant options based on user criteria."""
+    """Find flight, hotel, and restaurant options based on user criteria.
+    Args:
+        All from Previous State
+        destination
+        travel_dates
+        budget 
+        preferences
+    Output:
+        flight_options
+        hotel_options
+        restaurant_options
+    """
     destination = state.destination
     travel_dates = state.travel_dates
     budget = state.budget
@@ -12,6 +23,7 @@ def research_node(state: AgentState) -> AgentState:
     
     with open(base_dir + 'mock_flights.json') as f:
         all_flights = json.load(f)
+    
     
     with open(base_dir + 'mock_hotels.json') as f:
         all_hotels = json.load(f)
@@ -114,11 +126,11 @@ def filter_restaurants(all_restaurants, restaurant_budget):
 
 if __name__ == "__main__":
     test_state = AgentState(
-        user_request= "Book me a trip to Miami for the weekend in less than $2000",
+        user_request= "Book me a trip to Miami for the weekend in less than $5000",
         user_id = "ksm_124",
         destination = "Miami, FL",
         travel_dates = ["2026-03-30", "2026-03-31"],
-        budget = 2000.0,
+        budget = 5000.0,
         preferences = ["beachfront"]
     )
     updated_state = research_node(test_state)
