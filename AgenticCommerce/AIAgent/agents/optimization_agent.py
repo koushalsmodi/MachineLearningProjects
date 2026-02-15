@@ -220,9 +220,6 @@ def calculate_points(selected_flight, selected_hotel, selected_restaurant, card_
         restaurant_multiplier = card_benefits["points_multipliers"]["restaurants"]["rate"]
         total_points += selected_restaurant["avg_cost_per_person"] * restaurant_multiplier
     
-    for offer in applied_offers:
-        if offer["discount_type"] == "bonus_points":
-            total_points += offer["discount_value"]
     return int(total_points)
 
 def apply_offers(selected_flight, selected_hotel, selected_restaurant, amex_offers, num_nights):
