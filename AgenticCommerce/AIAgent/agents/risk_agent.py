@@ -73,7 +73,7 @@ def risk_node(state: AgentState) -> AgentState:
     
     
     # 9. Requires approval
-    requires_approval = risk_score > 0.7
+    requires_approval = risk_score > 0.6
     
     # 10. Update state
     state.risk_score = risk_score
@@ -237,7 +237,7 @@ def generate_risk_flags(risk_analysis, risk_score):
             flags.append("unusual_category")
     
     # Overall risk flag
-    if risk_score >= 0.7:
+    if risk_score >= 0.6:
         flags.append("requires_manual_review")
     
     return flags
@@ -266,7 +266,7 @@ if __name__ == "__main__":
     test_state_high = AgentState(
         user_request="Book me an expensive trip to Tokyo",
         user_id="ksm_124",
-        final_cost=2500.0,  # 2.5x average!
+        final_cost=6000.0,  # 2.5x average!
         destination="Tokyo, Japan"  # New destination
     )
     
