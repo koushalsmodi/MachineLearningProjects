@@ -29,8 +29,8 @@ class AgentState(BaseModel):
     selected_flight: dict | None = None
     selected_hotel: dict | None = None
     selected_restaurant: dict | None = None
-    applied_offers: List[dict] = []
     points_earned: int = 0
+    applied_offers: List[dict] = []
     original_cost: float = 0.0
     final_cost: float = 0.0
     
