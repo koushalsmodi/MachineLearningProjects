@@ -202,7 +202,7 @@ def select_best_restaurant(restaurant_options, card_benefits, amex_offers):
     
     return best_restaurant
 
-def calculate_points(selected_flight, selected_hotel, selected_restaurant, card_benefits, applied_offers, num_nights):
+def calculate_points(selected_flight, selected_hotel, selected_restaurant, card_benefits, num_nights):
     total_points = 0
     
     # Flight points
@@ -318,7 +318,6 @@ def optimization_node(state: AgentState) -> AgentState:
         selected_hotel, 
         selected_restaurant,
         card_benefits, 
-        applied_offers,
         num_nights
     )
 
