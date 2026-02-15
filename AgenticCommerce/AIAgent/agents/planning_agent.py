@@ -43,6 +43,8 @@ def planning_node(state: AgentState) -> AgentState:
         cleaned_response = cleaned_response.strip()
 
     # this converts a JSON string into a real Python object (dict / list).
+    # json.loads() is for string as input
+    # json.load() is for file as input
     try:
         data = json.loads(cleaned_response)
     except Exception as e:
@@ -58,7 +60,7 @@ def planning_node(state: AgentState) -> AgentState:
 if __name__ == '__main__':
     # Test: Create initial state
     test_state = AgentState(
-        user_request= "Book me a trip to Miami for the weekend in less than $2000",
+        user_request= "Book me a trip to Miami for the weekend in less than $5000",
         user_id = "ksm_124"
     )
     
