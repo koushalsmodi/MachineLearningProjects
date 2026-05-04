@@ -1,0 +1,8 @@
+cleaned_transactions.csv
+ieee-fraud-detection/
+google-cloud-sdk/
+google-cloud-cli-darwin-x86_64.tar.gz
+*.tar.gz
+.venv/
+__pycache__/
+*.pyc
