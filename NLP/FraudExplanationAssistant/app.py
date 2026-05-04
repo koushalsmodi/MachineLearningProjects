@@ -39,10 +39,7 @@ X = df.drop(columns = 'isFraud')
 probabilities = model.predict_proba(X)[:, 1]
 df['fraud_probability'] = probabilities 
 filtered_df = df[df['fraud_probability'] > 0.5] 
-""" 
-display_cols = ['TransactionAmt', 'ProductCD', 'P_emaildomain', 'fraud_probability']
-st.dataframe(filtered_df[display_cols])
-"""
+
 st.dataframe(data = filtered_df)
 
 # 5. Selecting a transaction for investigation
