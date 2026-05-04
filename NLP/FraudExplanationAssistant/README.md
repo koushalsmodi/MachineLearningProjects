@@ -55,7 +55,7 @@ gcloud auth application-default login
 streamlit run app.py
 ```
 
-## Project Structure
+```
 fraud-explanation-assistant/
 ├── app.py
 ├── fraud_detection.ipynb
@@ -63,3 +63,4 @@ fraud-explanation-assistant/
 ├── original_categories.csv
 ├── requirements.txt
 └── README.md
+```
