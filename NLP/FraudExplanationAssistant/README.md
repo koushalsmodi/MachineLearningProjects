@@ -15,7 +15,7 @@ This project is an AI-powered fraud detection and explanation system built for c
 ![Architecture](architecture.jpg)
 
 ## Demo
-[Watch the demo](https://www.loom.com/share/5d1355919e824b97844e2cc0a9e8d9a6)
+[Watch the demo](https://youtu.be/l4I1XY4tQfY)
 
 ### Layers
 - **Layer 1 — Ingest**: IEEE-CIS transaction data loaded from Kaggle into BigQuery, registered as a Vertex AI Managed Dataset
