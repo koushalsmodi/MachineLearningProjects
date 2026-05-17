@@ -1,0 +1,12 @@
+students = []
+
+with open('names.csv', 'r') as file:
+    for line in file:
+        name, house = line.rstrip().split(',')
+        student = {'name': name, 'house': house}
+        students.append(student)
+
+
+for student in sorted(students, key = lambda student: student['name']):
+    print(f"{student['name']} lives in {student['house']}")
+        
