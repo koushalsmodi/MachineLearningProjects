@@ -1,0 +1,36 @@
+{
+    "meta": {
+        "version": "1.0",
+        "last_updated": "2026-06-27",
+        "scenario_name": "analyst_economy_compliant",
+        "scenario_description": "Happy path - entry tier traveler, all checks pass"
+    },
+
+    "traveler": {
+        "$ref": "data/travelers.json#/EMP001"
+    },
+
+    "trip_request": {
+        "origin_airport": "PHX",
+        "destination_airport": "JFK",
+        "departure_date": "2026-07-16",
+        "return_date": "2026-07-19",
+        "preferred_airline": "Delta",
+        "cabin_preference": "economy"
+    },
+
+    "expected_outcome": {
+    
+        "expected_status": "compliant",
+        "estimated_trip_cost": 420,
+        "expected_policy_checks": {
+        "advance_booking_days": "pass",
+        "approved_airlines": "pass",
+        "cabin_class" : "pass",
+        "upgrade_eligibility": "pass",
+        "max_trip_budget": "pass"
+        },
+        "expected_verdict": 
+        "Delta economy PHX -> JFK on July 16, returning on July 19 is compliant with your entry tier policy and within the $800 budget. Ready to book."
+    }
+}

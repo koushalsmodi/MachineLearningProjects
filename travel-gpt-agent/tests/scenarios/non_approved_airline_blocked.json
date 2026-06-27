@@ -1,0 +1,33 @@
+{
+    "meta": {
+        "version": "1.0",
+        "last_updated": "2026-06-27",
+        "scenario_name": "non_approved_airline_blocked",
+        "scenario_description": "Traveler requesting for a non-approved airline, checks failed"
+    },
+
+    "traveler": {
+        "$ref": "data/travelers.json#/EMP002"
+    },
+
+    "trip_request": {
+        "origin_airport": "SFO",
+        "destination_airport": "JFK",
+        "departure_date": "2026-07-16",
+        "return_date": "2026-07-19",
+        "preferred_airline": "Frontier",
+        "cabin_preference": "economy"
+    },
+
+    "expected_outcome": {
+    
+        "expected_status": "non_compliant",
+        "estimated_trip_cost": 400,
+        "expected_policy_checks": {
+        "advance_booking_days": "pass",
+        "approved_airlines": "fail"
+        },
+        "expected_verdict": 
+        "Frontier is a not an approved airline for manager tier. Delta or United premium economy SFO -> JFK on July 16 is available within your $1600 budget. Would you like me to book that instead?"
+    }
+}

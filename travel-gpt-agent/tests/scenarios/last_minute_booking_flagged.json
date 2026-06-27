@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "version": "1.0",
+        "last_updated": "2026-06-27",
+        "scenario_name": "last_minute_booking_flagged",
+        "scenario_description": "Entry tier traveler requesting for last minute booking, checks failed"
+    },
+
+    "traveler": {
+        "$ref": "data/travelers.json#/EMP001"
+    },
+
+    "trip_request": {
+        "origin_airport": "PHX",
+        "destination_airport": "JFK",
+        "departure_date": "2026-07-03",
+        "return_date": "2026-07-05",
+        "preferred_airline": "Delta",
+        "cabin_preference": "economy"
+    },
+
+    "expected_outcome": {
+    
+        "expected_status": "needs_approval",
+        "estimated_trip_cost": 640,
+        "expected_policy_checks": {
+        "advance_booking_days": "fail"
+        },
+        "expected_verdict": 
+        "Last minute booking is not permitted for entry tier. Therefore, Economy on Delta PHX -> JFK on July 3 cannot be booked. Please request an exception from your Finance team mananger to proceed with this booking."
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "meta":{
+    "version": "1.0",
+    "last_updated": "2026-06-27"
+    },
+
+    "Finance":{
+        "project_budget": 200000,
+        "remaining_budget": 24000 
+    },
+
+    "Engineering":{
+        "project_budget": 100000,
+        "remaining_budget": 19000 
+    },
+
+    "Commercial":{
+        "project_budget": 300000,
+        "remaining_budget": 40000
+    }
+
+}

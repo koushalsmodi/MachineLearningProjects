@@ -1,0 +1,38 @@
+{
+    "meta": {
+        "version": "1.0",
+        "last_updated": "2026-06-27",
+        "scenario_name": "upgrade_if_in_policy",
+        "scenario_description": "Cost of upgrade is within policy, checks pass"
+    },
+
+    "traveler": {
+        "$ref": "data/travelers.json#/EMP002"
+    },
+
+    "trip_request": {
+        "origin_airport": "SFO",
+        "destination_airport": "JFK",
+        "departure_date": "2026-07-16",
+        "return_date": "2026-07-19",
+        "preferred_airline": "Delta",
+        "cabin_preference": "premium_economy",
+        "upgrade_requested": true,
+        "upgrade_cost": 180
+    },
+
+    "expected_outcome": {
+    
+        "expected_status": "compliant",
+        "estimated_trip_cost": 960,
+        "expected_policy_checks": {
+        "advance_booking_days": "pass",
+        "approved_airlines": "pass",
+        "cabin_class" : "pass",
+        "upgrade_eligibility": "pass",
+        "max_trip_budget": "pass"
+        },
+        "expected_verdict": 
+        "Business upgrade is within the max upgrade cost for manager tier. Delta business SFO -> JFK on July 16 is available within your $1600 budget. Ready to book."
+    }
+}

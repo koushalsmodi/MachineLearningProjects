@@ -1,0 +1,51 @@
+{
+    "meta":{
+    "version": "1.0",
+    "last_updated": "2026-06-27"
+    },
+
+    "EMP001":{
+        "employee_id": 7123456,
+        "tier": "entry",
+        "team": "Finance",
+        "firstName": "Koushal",
+        "lastName": "Modi",
+        "email": "koushalsmodi@amex.com",
+        "home_airport": "PHX",
+        "loyalty_programs": {
+            "delta": "A876543210"
+        },
+        "assigned_budget_pool": "Finance"
+    },
+
+    "EMP002":{
+        "employee_id": 6231457,
+        "tier": "manager",
+        "team": "Engineering",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "johndoe@amex.com",
+        "home_airport": "SFO",
+        "loyalty_programs": {
+            "delta": "D104665798",
+            "united": "AB213456"
+        },
+        "assigned_budget_pool": "Engineering"
+    },
+
+    "EMP003":{
+        "employee_id": 7231456,
+        "tier": "senior",
+        "team": "Commercial",
+        "firstName": "Alex",
+        "lastName": "Rider",
+        "email": "alexrider@amex.com",
+        "home_airport": "JFK",
+        "loyalty_programs": {
+            "delta": "S579821046",
+            "united": "AB123456",
+            "american": "A1B2C3D"
+        },
+        "assigned_budget_pool": "Commercial"
+    }
+}

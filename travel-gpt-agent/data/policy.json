@@ -1,0 +1,36 @@
+{
+    "meta":{
+    "version": "1.0",
+    "last_updated": "2026-06-27",
+    "currency": "USD"
+    },
+
+    "entry":{
+        "cabin_class": "economy",
+        "approved_airlines": ["Delta", "United", "American"],
+        "upgrade_eligibility": false,
+        "lounge_access": false,
+        "advance_booking_days": 14,
+        "max_trip_budget": 800
+    },
+
+    "manager":{
+        "cabin_class": "premium_economy",
+        "approved_airlines": ["Delta", "United", "American"],
+        "upgrade_eligibility": true,
+        "lounge_access": false,
+        "advance_booking_days": 10,
+        "max_upgrade_cost": 200,
+        "max_trip_budget": 1600
+    },
+
+    "senior":{
+        "cabin_class": "business",
+        "approved_airlines": ["Delta", "United", "American", "Lufthansa", "Singapore"],
+        "upgrade_eligibility": true,
+        "lounge_access": true,
+        "advance_booking_days": 7,
+        "max_upgrade_cost": 300,
+        "max_trip_budget": 2500
+    }
+}
