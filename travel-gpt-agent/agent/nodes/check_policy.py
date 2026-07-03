@@ -1,7 +1,6 @@
 import sys
 sys.path.append('/Users/koushalsmodi/Desktop/MachineLearning/MachineLearningProjects/travel-gpt-agent')
 from agent.state import AgentState
-from search_flights import make_search_flights_node
 import json
 
 def make_checks_policy_node(tools_by_name):
@@ -13,7 +12,12 @@ def make_checks_policy_node(tools_by_name):
         })
         
         traveler_tier = traveler_tier[0]['text']
-        
+        traveler_team = await tools_by_name['get_traveler_team_info'].ainvoke({
+                                "employee_id": employee_id
+                            })
+        print('raw team result', traveler_team)
+        traveler_team = traveler_team[0]['text']
+        print('team name:', traveler_team)
         flight_results = state['flight_results']
         
         # From Policy server
@@ -70,7 +74,7 @@ def make_checks_policy_node(tools_by_name):
                         estimated_cost_requested = flight['price']
                         estimated_cost_result = await tools_by_name['budget_check'].ainvoke({
                         "tier": traveler_tier,
-                        "estimated_cost_requested": estimated_cost_requested
+                        "estimated_cost": estimated_cost_requested
                         })
                         estimated_cost_result = json.loads(estimated_cost_result[0]['text'])
                         if estimated_cost_result['status'] == 'fail':
@@ -81,7 +85,22 @@ def make_checks_policy_node(tools_by_name):
                             })
                             continue
                         else:
-                            compliant_flights.append(flight)
+                            
+                            
+                            remaining_budget_result = await tools_by_name['remaining_budget'].ainvoke({
+                            "team_entered": traveler_team
+                            })
+                            remaining_budget_value = float(remaining_budget_result[0]['text'])
+                            if remaining_budget_value < estimated_cost_requested:
+                                non_compliant_flights.append({
+                                'flight': flight,
+                                'failed_check': 'remaining_budget',
+                                'reason': f"Flight price ${flight['price']} exceeds team remaining budget ${remaining_budget_value}"
+                                })
+                                continue
+                            
+                            else:
+                                compliant_flights.append(flight)
                 
         #print(result)
         # check_advance_booking(tier, departure_date)
@@ -89,14 +108,14 @@ def make_checks_policy_node(tools_by_name):
         return {
         'traveler_tier': traveler_tier,
         'compliant_flights': compliant_flights,
-        'non_compliant_flights': non_compliant_flights,
-        'advance_booking_result': advance_booking_result,
-        'cabin_class_result': cabin_class_result,
-        'estimated_cost_result': estimated_cost_result
+        'non_compliant_flights': non_compliant_flights
+        #'advance_booking_result': advance_booking_result,
+        #'cabin_class_result': cabin_class_result,
+        #'estimated_cost_result': estimated_cost_result
         }
     
     return check_policy 
-
+"""
 if __name__ == "__main__":
     import asyncio
     from langchain_mcp_adapters.client import MultiServerMCPClient
@@ -130,13 +149,13 @@ if __name__ == "__main__":
         tools_by_name = {tool.name: tool for tool in tools}
         
         # Traveler's request from State
-        """ 
+        
         employee_id: int
         origin: str
         destination: str
         departure_date: str
         cabin_preference: str
-        """
+        
         
         fake_state = {
             "employee_id": "EMP001",
@@ -158,3 +177,4 @@ if __name__ == "__main__":
         print("Final result:", result)
 
     asyncio.run(test())
+"""
