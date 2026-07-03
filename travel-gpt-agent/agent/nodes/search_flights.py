@@ -11,12 +11,12 @@ def make_search_flights_node(tools_by_name):
         cabin_preference = state['cabin_preference']
         
         result = await tools_by_name['flight_search'].ainvoke({
-        "origin": origin,
-        "destination": destination,
-        "departure_date": departure_date,
-        "cabin_class": cabin_preference
+        'origin': origin,
+        'destination': destination,
+        'departure_date': departure_date,
+        'cabin_class': cabin_preference
         })
         
         result = json.loads(result[0]['text'])
-        return {"flight_results": result}
+        return {'flight_results': result}
     return search_flights 
