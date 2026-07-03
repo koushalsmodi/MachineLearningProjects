@@ -1,5 +1,5 @@
 from fastmcp import FastMCP
-from profile_loader import get_traveler, get_traveler_tier
+from profile_loader import get_traveler, get_traveler_tier, get_traveler_team_name
 
 mcp = FastMCP(
     "traveler-profile-server",
@@ -15,6 +15,12 @@ def get_traveler_info(employee_id):
     """
     return get_traveler(employee_id=employee_id)
     
+@mcp.tool()
+def get_traveler_team_info(employee_id):
+    """ Retrieve the team name of a Corporate Traveler
+    Use this when you need traveler's team name information.
+    """
+    return get_traveler_team_name(employee_id)
 
 @mcp.tool()
 def get_traveler_tier_info(employee_id):

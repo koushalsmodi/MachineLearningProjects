@@ -14,6 +14,15 @@ def get_traveler(employee_id):
 
     return "No corresponding employee found at Company."
     
+def get_traveler_team_name(employee_id):
+    for emp_id, emp_info in data.items():
+        if emp_id == 'meta':
+            pass
+        
+        if emp_id == employee_id:
+            return emp_info['team']
+
+    return "No corresponding employee found at Company."
     
 def get_traveler_tier(employee_id):
     for emp_id, emp_info in data.items():
