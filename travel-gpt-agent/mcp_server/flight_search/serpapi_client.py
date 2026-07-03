@@ -25,8 +25,8 @@ def search_flights(origin, destination, departure_date, cabin_class):
     
     search = GoogleSearch(params)
     results = search.get_dict()
-    print(results)
-    print()
+    #print(results)
+    #print()
     
     best_flights = results.get("best_flights", [])
     flights_to_use = best_flights if best_flights else results.get("other_flights", [])
@@ -42,7 +42,7 @@ def search_flights(origin, destination, departure_date, cabin_class):
         
 
         legs = flight.get("flights", [])
-        print(f"Total Price: ${price:.2f} and Total Duration: {total_duration} mins")
+        #print(f"Total Price: ${price:.2f} and Total Duration: {total_duration} mins")
     
         for leg in legs:
             leg_dict = {'airline': None,
@@ -70,8 +70,8 @@ def search_flights(origin, destination, departure_date, cabin_class):
             leg_dict['arrival_airport'] =  arrival_airport
             leg_dict['arrival_time'] =  arrival_time
             
-            print(f"- {airline} ({flight_number}) in {travel_class}: {departure_airport} [{departure_time}] -> {arrival_airport} [{arrival_time}]")
-            print("-" * 40)
+            #print(f"- {airline} ({flight_number}) in {travel_class}: {departure_airport} [{departure_time}] -> {arrival_airport} [{arrival_time}]")
+            #print("-" * 40)
             flight_dict['legs'].append(leg_dict)
         flight_results.append(flight_dict)
         

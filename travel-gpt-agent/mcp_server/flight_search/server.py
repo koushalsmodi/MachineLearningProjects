@@ -1,5 +1,6 @@
 from fastmcp import FastMCP
 from serpapi_client import search_flights
+import json
 
 mcp = FastMCP(
     "search-flights-server",
@@ -14,7 +15,7 @@ def flight_search(origin, destination, departure_date, cabin_class):
     destination, departure_date, cabin_class
     
     """
-    return search_flights(origin, destination, departure_date, cabin_class)
+    return json.dumps(search_flights(origin, destination, departure_date, cabin_class))
 
 
 if __name__ == "__main__":
