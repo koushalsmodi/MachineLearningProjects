@@ -1,7 +1,12 @@
-## What it does?
+# Travel - GPT Agent
 
-Travel-GPT is a corporate travel agent built to mirror Hyper's Travel-GPT roadmap. 
-A traveler describes a trip in plain language, and the agent:
+A corporate travel agent that plans and verifies trips against company policy — built 
+to mirror Hyper's Travel-GPT roadmap, from scratch, as a technical exploration of what 
+that product likely requires under the hood.
+
+## What it does
+
+A traveler enters their employee ID, destination, and departure date. The agent:
 
 - Looks up the traveler's tier, team, and home airport from their profile
 - Searches live flight data
@@ -17,8 +22,11 @@ A traveler describes a trip in plain language, and the agent:
 
 A five-node LangGraph agent orchestrates four independent MCP servers:
 
-1. **Parse intent** — extracts destination, dates, and cabin preference 
-   from natural language
+1. **Parse intent** — extracts the destination airport code and defaults 
+   cabin preference from the traveler's request. The node is also built to 
+   extract employee ID and dates from free text — the Streamlit UI currently 
+   collects those as structured form fields instead, but the underlying 
+   agent handles either path.
 2. **Lookup origin** — pulls the traveler's home airport from their profile 
    rather than asking the LLM to guess it
 3. **Search flights** — queries live flight data via SerpApi
@@ -55,17 +63,6 @@ just that it was.
 
 Each server is independently testable and swappable — in production, 
 `flight_search` would connect to Amadeus or a GDS instead of SerpApi.
-
-## Demo scenarios
-
-Five hand-crafted test scenarios in `tests/scenarios/` cover the core 
-policy decisions before any UI existed:
-
-- Happy path — all checks pass
-- Cabin class violation
-- Last-minute booking (advance booking window failure)
-- Non-approved airline
-- Upgrade approval within policy threshold
 
 ## What's next
 
