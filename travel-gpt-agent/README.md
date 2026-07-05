@@ -7,7 +7,11 @@ that product likely requires under the hood.
 
 ## Demo
 
-[![Travel-GPT Demo](https://cdn.loom.com/sessions/thumbnails/4f445384c81f4ea9b207790419efdb52-with-play.gif)](https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52)
+## Demo
+
+[![Travel-GPT Demo](docs/demo.gif)](https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52)
+
+*Click the GIF to watch the full walkthrough.*
 
 *Click to watch the 2-minute walkthrough*
 
