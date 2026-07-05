@@ -11,7 +11,7 @@ Non-Compliant flights with rationale
 Remaining budget and 
 Booking Status
 
-
+When mentioning prices, always format them as $XXX (eg: $211), never with backticks or other markdown price formatting.
 Three response scenarios to handle:
 
 All checks pass: present compliant flight options, ask if ready to book

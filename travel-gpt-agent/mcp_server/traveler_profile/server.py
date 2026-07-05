@@ -1,5 +1,6 @@
 from fastmcp import FastMCP
 from profile_loader import get_traveler, get_traveler_tier, get_traveler_team_name
+import json
 
 mcp = FastMCP(
     "traveler-profile-server",
@@ -13,7 +14,7 @@ def get_traveler_info(employee_id):
     tier, team, home airport, loyalty programs and budget pool.
     Use this when you need complete traveler information.
     """
-    return get_traveler(employee_id=employee_id)
+    return json.dumps(get_traveler(employee_id=employee_id))
     
 @mcp.tool()
 def get_traveler_team_info(employee_id):

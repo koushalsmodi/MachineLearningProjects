@@ -27,11 +27,18 @@ def make_parse_intent_node(model):
         end = response.rfind('}') + 1
         clean_json = response[start:end]
         parsed = json.loads(clean_json)
-        return {
-                "employee_id": parsed['employee_id'],
-                "origin": parsed['origin'],
-                "destination": parsed['destination'],
-                "departure_date": parsed['departure_date'],
-                "cabin_preference": parsed['cabin_preference']
+        
+        
+        update = {
+            'destination': parsed['destination'],
+            'cabin_preference': parsed.get('cabin_preference', 'economy'),
         }
+
+        if not state.get('employee_id'):
+            update['employee_id'] = parsed.get('employee_id')
+        if not state.get('departure_date'):
+            update['departure_date'] = parsed.get('departure_date')
+        
+        return update
+    
     return parse_intent
