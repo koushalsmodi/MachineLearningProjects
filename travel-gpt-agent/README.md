@@ -4,17 +4,9 @@ A corporate travel agent that plans and verifies trips against company policy â€
 to mirror Hyper's Travel-GPT roadmap, from scratch, as a technical exploration of what 
 that product likely requires under the hood.
 
-<h2>Demo</h2>
-
-<p align="center">
-  <a href="https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52">
-    <img src="assets/demo.gif" width="900" alt="Travel GPT Demo">
-  </a>
-</p>
-
-<p align="center">
-  <i>Click the image to watch the walkthrough.</i>
-</p>
+## Demo
+(https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52)
+*Click to watch the walkthrough*
 
 ## What it does
 
