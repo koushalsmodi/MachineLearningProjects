@@ -7,7 +7,7 @@ that product likely requires under the hood.
 ## Demo
 [![Travel-GPT Demo](docs/demo.png)](https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52)
 
-*Click to watch the 2-minute walkthrough*
+*Click to watch the walkthrough*
 
 ## What it does
 
