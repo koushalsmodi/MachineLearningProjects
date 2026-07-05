@@ -1,4 +1,4 @@
-## What it does
+## What it does?
 
 Travel-GPT is a corporate travel agent built to mirror Hyper's Travel-GPT roadmap. 
 A traveler describes a trip in plain language, and the agent:
