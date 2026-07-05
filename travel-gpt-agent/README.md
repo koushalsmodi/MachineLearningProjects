@@ -5,7 +5,7 @@ to mirror Hyper's Travel-GPT roadmap, from scratch, as a technical exploration o
 that product likely requires under the hood.
 
 ## Demo
-🎥 **[Watch the demo here](https://www.loom.com/share/4f445384c81f4ea9b207790419efdb52)**
+🎥 **[Watch the demo here](https://youtu.be/nOm2ma0KHWw)**
 
 ## What it does
 
